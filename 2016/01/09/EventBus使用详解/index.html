@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>EventBus使用详解 | Mr.Liu的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言：EventBus出来有一段时间了，github上面也有很多开源项目中用到了EventBus。所以抽空学习顺便整理了一下。 概述EventBus是针一款对Android的发布/订阅事件总线。它可以让我们很轻松的实现在Android各个组件之间传递消息，并且代码的可读性更好，耦合度更低。 如何使用(1)首先需要定义一个消息类，该类可以不继承任何基类也不需要实现任何接口。如： 123public">
+<meta name="keywords" content="EventBus,Android,GitHub">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EventBus使用详解">
+<meta property="og:url" content="http://blogliu.com.cn/2016/01/09/EventBus使用详解/index.html">
+<meta property="og:site_name" content="Mr.Liu的博客">
+<meta property="og:description" content="前言：EventBus出来有一段时间了，github上面也有很多开源项目中用到了EventBus。所以抽空学习顺便整理了一下。 概述EventBus是针一款对Android的发布/订阅事件总线。它可以让我们很轻松的实现在Android各个组件之间传递消息，并且代码的可读性更好，耦合度更低。 如何使用(1)首先需要定义一个消息类，该类可以不继承任何基类也不需要实现任何接口。如： 123public">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2016-01-11T06:08:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="EventBus使用详解">
+<meta name="twitter:description" content="前言：EventBus出来有一段时间了，github上面也有很多开源项目中用到了EventBus。所以抽空学习顺便整理了一下。 概述EventBus是针一款对Android的发布/订阅事件总线。它可以让我们很轻松的实现在Android各个组件之间传递消息，并且代码的可读性更好，耦合度更低。 如何使用(1)首先需要定义一个消息类，该类可以不继承任何基类也不需要实现任何接口。如： 123public">
+  
+    <link rel="alternate" href="/atom.xml" title="Mr.Liu的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Mr.Liu的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">攻城狮的博客</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://blogliu.com.cn"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-EventBus使用详解" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/01/09/EventBus使用详解/" class="article-date">
+  <time datetime="2016-01-09T15:52:53.000Z" itemprop="datePublished">2016-01-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/移动开发/">移动开发</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      EventBus使用详解
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>前言：EventBus出来有一段时间了，github上面也有很多开源项目中用到<br>了EventBus。所以抽空学习顺便整理了一下。</p>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>EventBus是针一款对Android的发布/订阅事件总线。它可以让我们很轻松的实现在Android各个组件之间传递消息，并且代码的可读性更好，耦合度更低。</p>
+<h2 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h2><p>(1)首先需要定义一个消息类，该类可以不继承任何基类也不需要实现任何接口。如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MessageEvent</span> </span>&#123;</span><br><span class="line">   	......	</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>(2)在需要订阅事件的地方注册事件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EventBus.getDefault().register(<span class="keyword">this</span>);</span><br></pre></td></tr></table></figure>
+<p>(3)产生事件，即发送消息</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EventBus.getDefault().post(messageEvent);</span><br></pre></td></tr></table></figure>
+<p>(4)处理消息</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onEvent</span><span class="params">(MessageEvent messageEvent)</span> </span>&#123;</span><br><span class="line">   	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>(5)取消消息订阅</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EventBus.getDefault().unregister(<span class="keyword">this</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="有何优点"><a href="#有何优点" class="headerlink" title="有何优点"></a>有何优点</h2><p>采用消息发布/订阅的一个很大的优点就是代码的简洁性，并且能够有效地降低消息发布者和订阅者之间的耦合度。<br>举个例子，比如有两个界面，ActivityA和ActivityB，从ActivityA界面跳转到ActivityB界面后，ActivityB要给ActivityA发送一个消息，ActivityA收到消息后在界面上显示出来。我们最先想到的方法就是使用广播，使用广播实现此需求的代码如下：<br>首先需要在ActivityA中定义一个广播接收器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MessageBroadcastReceiver</span> <span class="keyword">extends</span> <span class="title">BroadcastReceiver</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onReceive</span><span class="params">(Context context, Intent intent)</span> </span>&#123;</span><br><span class="line">       		mMessageView.setText(<span class="string">"Message from SecondActivity:"</span> + intent.getStringExtra(<span class="string">"message"</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>还需要在onCreate()方法中注册广播接收器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">    setContentView(R.layout.activity_main);</span><br><span class="line">    <span class="comment">//注册事件</span></span><br><span class="line">    EventBus.getDefault().register(<span class="keyword">this</span>);</span><br><span class="line">    <span class="comment">//注册广播</span></span><br><span class="line">    IntentFilter intentFilter = <span class="keyword">new</span> IntentFilter(<span class="string">"message_broadcast"</span>);</span><br><span class="line">    mBroadcastReceiver = <span class="keyword">new</span> MessageBroadcastReceiver();</span><br><span class="line">    registerReceiver(mBroadcastReceiver, intentFilter);</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后在onDestory()方法中取消注册广播接收器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDestroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   	<span class="keyword">super</span>.onDestroy();</span><br><span class="line">   	......</span><br><span class="line">   	<span class="comment">//取消广播注册</span></span><br><span class="line">   	unregisterReceiver(mBroadcastReceiver);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后我们需要在ActivityB界面中发送广播消息：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">findViewById(R.id.send_broadcast).setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">    	<span class="meta">@Override</span></span><br><span class="line">    	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">        	String message = mMessageET.getText().toString();</span><br><span class="line">        	<span class="keyword">if</span>(TextUtils.isEmpty(message)) &#123;</span><br><span class="line">            	message = <span class="string">"defaule message"</span>;</span><br><span class="line">        	&#125;</span><br><span class="line">	        Intent intent = <span class="keyword">new</span> Intent();</span><br><span class="line">	        intent.setAction(<span class="string">"message_broadcast"</span>);</span><br><span class="line">	        intent.putExtra(<span class="string">"message"</span>, message);</span><br><span class="line">	        sendBroadcast(intent);</span><br><span class="line">    	&#125;</span><br><span class="line">	&#125;);</span><br></pre></td></tr></table></figure>
+<p>看着上面的实现代码，感觉也没什么不妥，挺好的！下面对比看下使用EventBus如何实现。<br>根据文章最前面所讲的EventBus使用步骤，首先我们需要定义一个消息事件类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MessageEvent</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String message;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MessageEvent</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.message = message;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getMessage</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> message;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMessage</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.message = message;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在ActivityA界面中我们首先需要注册订阅事件：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">    setContentView(R.layout.activity_main);</span><br><span class="line">    <span class="comment">//注册事件</span></span><br><span class="line">    EventBus.getDefault().register(<span class="keyword">this</span>);</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后在onDestory()方法中取消订阅：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDestroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onDestroy();</span><br><span class="line">    <span class="comment">//取消事件注册</span></span><br><span class="line">    EventBus.getDefault().unregister(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当然还要定义一个消息处理的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onEvent</span><span class="params">(MessageEvent messageEvent)</span> </span>&#123;</span><br><span class="line">   	mMessageView.setText(<span class="string">"Message from SecondActivity:"</span> + messageEvent.getMessage());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>至此，消息订阅者我们已经定义好了，我们还需要在ActivityB中发布消息：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">findViewById(R.id.send).setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">        String message = mMessageET.getText().toString();</span><br><span class="line">        <span class="keyword">if</span>(TextUtils.isEmpty(message)) &#123;</span><br><span class="line">            message = <span class="string">"defaule message"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        EventBus.getDefault().post(<span class="keyword">new</span> MessageEvent(message));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>对比代码一看，有人会说了，这尼玛有什么区别嘛！说好的简洁呢？哥们，别着急嘛！我这里只是举了个简单的例子，仅仅从该例子来看，EventBus的优势没有体现出来。现在我将需求稍微改一下，ActivityA收到消息后，需要从网络服务器获取数据并将数据展示出来。如果使用广播，ActivityA中广播接收器代码应该这么写：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MessageBroadcastReceiver</span> <span class="keyword">extends</span> <span class="title">BroadcastReceiver</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onReceive</span><span class="params">(Context context, Intent intent)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="comment">//从服务器上获取数据</span></span><br><span class="line">                ......</span><br><span class="line">                runOnUiThread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                        <span class="comment">//将获取的数据展示在界面上</span></span><br><span class="line">                        ......</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看到这段代码，不知道你何感想，反正我是看着很不爽，缩进层次太多，完全违反了Clean Code的原则。那使用EventBus来实现又是什么样呢？我们看一下。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onEventBackgroundThread</span><span class="params">(MessageEvent messageEvent)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//从服务器上获取数据</span></span><br><span class="line">    ......</span><br><span class="line">    EventBus.getDefault().post(<span class="keyword">new</span> ShowMessageEvent());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onEventMainThread</span><span class="params">(ShowMessageEvent showMessageEvent)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//将获取的数据展示在界面上</span></span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对比一下以上两段代码就能很明显的感觉到EventBus的优势，代码简洁、层次清晰，大大提高了代码的可读性和可维护性。我这只是简单的加了一个小需求而已，随着业务越来越复杂，使用EventBus的优势愈加明显。</p>
+<h2 id="常用API介绍"><a href="#常用API介绍" class="headerlink" title="常用API介绍"></a>常用API介绍</h2><h3 id="onEventXXX系列事件"><a href="#onEventXXX系列事件" class="headerlink" title="onEventXXX系列事件"></a>onEventXXX系列事件</h3><p>在上面我们已经接触到了EventBus的几个onEventXXX系列方法了。那他们有什么区别呢？  </p>
+<p>在EventBus中的观察者通常有四种事件处理函数，分别是onEvent、onEventMainThread、onEventBackground与onEventAsync。</p>
+<ul>
+<li>onEvent：如果使用onEvent作为事件处理函数，那么该事件在哪个线程发布出来的，onEvent就会在这个线程中运行，也就是说发布事件和接收事件在同一个线程。在onEvent方法中尽量避免执行耗时操作，因为有可能会引起ANR。</li>
+<li>onEventMainThread：如果使用onEventMainThread作为事件处理函数，那么不论事件是在哪个线程中发布出来的，该事件处理函数都会在UI线程中执行。该方法可以用来更新UI，但是不能处理耗时操作。</li>
+<li>onEvnetBackground：如果使用onEventBackgrond作为事件处理函数，那么如果事件是在UI线程中发布出来的，那么该事件处理函数就会在新的线程中运行，如果事件本来就是子线程中发布出来的，那么该事件处理函数直接在发布事件的线程中执行。</li>
+<li>onEventAsync：使用这个函数作为事件处理函数，那么无论事件在哪个线程发布，该事件处理函数都会在新建的子线程中执行。</li>
+</ul>
+<p>为了验证以上四个方法，我写了个小例子。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onEvent</span><span class="params">(MessageEvent messageEvent)</span> </span>&#123;</span><br><span class="line">   	Log.e(<span class="string">"onEvent"</span>, Thread.currentThread().getName());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onEventMainThread</span><span class="params">(MessageEvent messageEvent)</span> </span>&#123;</span><br><span class="line">    Log.e(<span class="string">"onEventMainThread"</span>, Thread.currentThread().getName());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onEventBackgroundThread</span><span class="params">(MessageEvent messageEvent)</span> </span>&#123;</span><br><span class="line">    Log.e(<span class="string">"onEventBackgroundThread"</span>, Thread.currentThread().getName());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onEventAsync</span><span class="params">(MessageEvent messageEvent)</span> </span>&#123;</span><br><span class="line">    Log.e(<span class="string">"onEventAsync"</span>, Thread.currentThread().getName());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>分别使用上面四个方法订阅同一事件，打印他们运行所在的线程。首先我们在UI线程中发布一条MessageEvent的消息，看下日志打印结果是什么。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">findViewById(R.id.send).setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">       <span class="meta">@Override</span></span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">           Log.e(<span class="string">"postEvent"</span>, Thread.currentThread().getName());</span><br><span class="line">           EventBus.getDefault().post(<span class="keyword">new</span> MessageEvent());</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;);</span><br></pre></td></tr></table></figure>
+<p>打印结果如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2689</span>-<span class="number">2689</span>/com.lling.eventbusdemo E/postEvent﹕ main</span><br><span class="line"><span class="number">2689</span>-<span class="number">2689</span>/com.lling.eventbusdemo E/onEvent﹕ main</span><br><span class="line"><span class="number">2689</span>-<span class="number">3064</span>/com.lling.eventbusdemo E/onEventAsync﹕ pool-<span class="number">1</span>-thread-<span class="number">1</span></span><br><span class="line"><span class="number">2689</span>-<span class="number">2689</span>/com.lling.eventbusdemo E/onEventMainThread﹕ main</span><br><span class="line"><span class="number">2689</span>-<span class="number">3065</span>/com.lling.eventbusdemo E/onEventBackgroundThread﹕ pool-<span class="number">1</span>-thread-<span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>从日志打印结果可以看出，如果在UI线程中发布事件，则onEvent也执行在UI线程，与发布事件的线程一致。onEventAsync执行在名字叫做pool-1-thread-1的新的线程中。onEventMainThread执行在UI线程。onEventBackgroundThread执行在名字叫做pool-1-thread-2的新的线程中。</p>
+<p>我们再看看在子线程中发布一条MessageEvent的消息时，会有什么样的结果。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">findViewById(R.id.send).setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">       <span class="meta">@Override</span></span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">           <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">               <span class="meta">@Override</span></span><br><span class="line">               <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                   Log.e(<span class="string">"postEvent"</span>, Thread.currentThread().getName());</span><br><span class="line">                   EventBus.getDefault().post(<span class="keyword">new</span> MessageEvent());</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;).start();</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;);</span><br></pre></td></tr></table></figure>
+<p>打印结果如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">3468</span>-<span class="number">3945</span>/com.lling.eventbusdemo E/postEvent﹕ Thread-<span class="number">125</span></span><br><span class="line"><span class="number">3468</span>-<span class="number">3945</span>/com.lling.eventbusdemo E/onEvent﹕ Thread-<span class="number">125</span></span><br><span class="line"><span class="number">3468</span>-<span class="number">3945</span>/com.lling.eventbusdemo E/onEventBackgroundThread﹕ Thread-<span class="number">125</span></span><br><span class="line"><span class="number">3468</span>-<span class="number">3946</span>/com.lling.eventbusdemo E/onEventAsync﹕ pool-<span class="number">1</span>-thread-<span class="number">1</span></span><br><span class="line"><span class="number">3468</span>-<span class="number">3468</span>/com.lling.eventbusdemo E/onEventMainThread﹕ main</span><br></pre></td></tr></table></figure>
+<p>从日志打印结果可以看出，如果在子线程中发布事件，则onEvent也执行在子线程，与发布事件的线程一致（都是Thread-125）。onEventBackgroundThread也与发布事件在同一线程执行。onEventAsync则在一个名叫pool-1-thread-1的新线程中执行。onEventMainThread还是在UI线程中执行。</p>
+<p>上面一个例子充分验证，onEventXXX系列方法执行所在的线程。</p>
+<h2 id="黏性事件"><a href="#黏性事件" class="headerlink" title="黏性事件"></a>黏性事件</h2><p>除了上面讲的普通事件外，EventBus还支持发送黏性事件。何为黏性事件呢？简单讲，就是在发送事件之后再订阅该事件也能收到该事件，跟黏性广播类似。具体用法如下：</p>
+<p>订阅黏性事件：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EventBus.getDefault().registerSticky(StickyModeActivity.<span class="keyword">this</span>);</span><br></pre></td></tr></table></figure>
+<p>发送黏性事件：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EventBus.getDefault().postSticky(<span class="keyword">new</span> MessageEvent(<span class="string">"test"</span>));</span><br></pre></td></tr></table></figure>
+<p>处理消息事件以及取消订阅和上面方式相同。</p>
+<p>看个简单的黏性事件的例子，为了简单起见我这里就在一个Activity里演示了。</p>
+<p>Activity代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StickyModeActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_sticky_mode);</span><br><span class="line">        findViewById(R.id.post).setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">                EventBus.getDefault().postSticky(<span class="keyword">new</span> MessageEvent(<span class="string">"test"</span> + index++));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        findViewById(R.id.regist).setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">                EventBus.getDefault().registerSticky(StickyModeActivity.<span class="keyword">this</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        findViewById(R.id.unregist).setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">                EventBus.getDefault().unregister(StickyModeActivity.<span class="keyword">this</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onEvent</span><span class="params">(MessageEvent messageEvent)</span> </span>&#123;</span><br><span class="line">        Log.e(<span class="string">"onEvent"</span>, messageEvent.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onEventMainThread</span><span class="params">(MessageEvent messageEvent)</span> </span>&#123;</span><br><span class="line">        Log.e(<span class="string">"onEventMainThread"</span>, messageEvent.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onEventBackgroundThread</span><span class="params">(MessageEvent messageEvent)</span> </span>&#123;</span><br><span class="line">        Log.e(<span class="string">"onEventBackgroundThread"</span>, messageEvent.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onEventAsync</span><span class="params">(MessageEvent messageEvent)</span> </span>&#123;</span><br><span class="line">        Log.e(<span class="string">"onEventAsync"</span>, messageEvent.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码很简单，界面上三个按钮，一个用来发送黏性事件，一个用来订阅事件，还有一个用来取消订阅的。首先在未订阅的情况下点击发送按钮发送一个黏性事件，然后点击订阅，会看到日志打印结果如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">15246</span>-<span class="number">15246</span>/com.lling.eventbusdemo E/onEvent﹕ test0</span><br><span class="line"><span class="number">15246</span>-<span class="number">15391</span>/com.lling.eventbusdemo E/onEventAsync﹕ test0</span><br><span class="line"><span class="number">15246</span>-<span class="number">15246</span>/com.lling.eventbusdemo E/onEventMainThread﹕ test0</span><br><span class="line"><span class="number">15246</span>-<span class="number">15393</span>/com.lling.eventbusdemo E/onEventBackgroundThread﹕ test0</span><br></pre></td></tr></table></figure>
+<p>这就是粘性事件，能够收到订阅之前发送的消息。但是它只能收到最新的一次消息，比如说在未订阅之前已经发送了多条黏性消息了，然后再订阅只能收到最近的一条消息。这个我们可以验证一下，我们连续点击5次POST按钮发送5条黏性事件，然后再点击REGIST按钮订阅，打印结果如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">6980</span>-<span class="number">6980</span>/com.lling.eventbusdemo E/onEvent﹕ test4</span><br><span class="line"><span class="number">6980</span>-<span class="number">6980</span>/com.lling.eventbusdemo E/onEventMainThread﹕ test4</span><br><span class="line"><span class="number">6980</span>-<span class="number">7049</span>/com.lling.eventbusdemo E/onEventAsync﹕ test4</span><br><span class="line"><span class="number">6980</span>-<span class="number">7048</span>/com.lling.eventbusdemo E/onEventBackgroundThread﹕ test4</span><br></pre></td></tr></table></figure>
+<p>由打印结果可以看出，确实是只收到最近的一条黏性事件。</p>
+<p>好了，EventBus的使用暂时分析到这里。下一讲将讲解EventBus的源码。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blogliu.com.cn/2016/01/09/EventBus使用详解/" data-id="cjos3593v00139d0iz0g1h2ge" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/EventBus/">EventBus</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GitHub/">GitHub</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/01/10/2016-做更好的自己/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          2016,变成更好的自己
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/01/09/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MarkDown/">MarkDown</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/心情随笔/">心情随笔</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/移动开发/">移动开发</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EventBus/">EventBus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MarkDown/">MarkDown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/笔记/">笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编辑器/">编辑器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书/">读书</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 15px;">Android</a> <a href="/tags/EventBus/" style="font-size: 15px;">EventBus</a> <a href="/tags/GitHub/" style="font-size: 15px;">GitHub</a> <a href="/tags/MarkDown/" style="font-size: 10px;">MarkDown</a> <a href="/tags/生活/" style="font-size: 20px;">生活</a> <a href="/tags/笔记/" style="font-size: 15px;">笔记</a> <a href="/tags/编辑器/" style="font-size: 10px;">编辑器</a> <a href="/tags/读书/" style="font-size: 15px;">读书</a> <a href="/tags/随笔/" style="font-size: 20px;">随笔</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/01/18/Android群英传读书笔记系列（二）/">Android群英传读书笔记系列（二）</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/16/工作以来的一些感悟/">工作以来的一些感悟</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/15/Android群英传读书笔记系列（一）/">Android群英传读书笔记系列（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2016/12/12/轻松搞定MarkDown/">轻松搞定MarkDown</a>
+          </li>
+        
+          <li>
+            <a href="/2016/12/10/再会/">再会</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Liu Teng<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

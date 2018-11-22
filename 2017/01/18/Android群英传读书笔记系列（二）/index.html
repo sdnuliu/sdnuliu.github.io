@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Android群英传读书笔记系列（二） | Mr.Liu的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Android群英传读书笔记记录，备忘，关于一些知识点以及重要的地方。 1. Android Scroll分析关键词：绝对坐标与视图坐标的区别 1.1. Android坐标系在Android中，是以屏幕的左上角作为坐标系的原点，向右是x轴，向下是Y轴。 系统提供了getLocationOnScreen(int locaiton[]) 获取坐标系位置，另外触控事件中getRawX()  ,getRa">
+<meta name="keywords" content="读书,笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android群英传读书笔记系列（二）">
+<meta property="og:url" content="http://blogliu.com.cn/2017/01/18/Android群英传读书笔记系列（二）/index.html">
+<meta property="og:site_name" content="Mr.Liu的博客">
+<meta property="og:description" content="Android群英传读书笔记记录，备忘，关于一些知识点以及重要的地方。 1. Android Scroll分析关键词：绝对坐标与视图坐标的区别 1.1. Android坐标系在Android中，是以屏幕的左上角作为坐标系的原点，向右是x轴，向下是Y轴。 系统提供了getLocationOnScreen(int locaiton[]) 获取坐标系位置，另外触控事件中getRawX()  ,getRa">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-01-18T07:41:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android群英传读书笔记系列（二）">
+<meta name="twitter:description" content="Android群英传读书笔记记录，备忘，关于一些知识点以及重要的地方。 1. Android Scroll分析关键词：绝对坐标与视图坐标的区别 1.1. Android坐标系在Android中，是以屏幕的左上角作为坐标系的原点，向右是x轴，向下是Y轴。 系统提供了getLocationOnScreen(int locaiton[]) 获取坐标系位置，另外触控事件中getRawX()  ,getRa">
+  
+    <link rel="alternate" href="/atom.xml" title="Mr.Liu的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Mr.Liu的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">攻城狮的博客</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://blogliu.com.cn"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Android群英传读书笔记系列（二）" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/01/18/Android群英传读书笔记系列（二）/" class="article-date">
+  <time datetime="2017-01-18T07:29:23.000Z" itemprop="datePublished">2017-01-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android群英传读书笔记系列（二）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Android群英传读书笔记记录，备忘，关于一些知识点以及重要的地方。</p>
+<h2 id="1-Android-Scroll分析"><a href="#1-Android-Scroll分析" class="headerlink" title="1. Android Scroll分析"></a>1. Android Scroll分析</h2><p>关键词：绝对坐标与视图坐标的区别</p>
+<h3 id="1-1-Android坐标系"><a href="#1-1-Android坐标系" class="headerlink" title="1.1. Android坐标系"></a>1.1. Android坐标系</h3><p>在Android中，是以屏幕的左上角作为坐标系的原点，向右是x轴，向下是Y轴。</p>
+<p>系统提供了getLocationOnScreen(int locaiton[]) 获取坐标系位置，另外触控事件中getRawX()  ,getRawY()获取的同样是Android坐标系中的坐标。</p>
+<h3 id="1-2-视图坐标系"><a href="#1-2-视图坐标系" class="headerlink" title="1.2 视图坐标系"></a>1.2 视图坐标系</h3><p>关于方向与1.1坐标系是一致的，只不过视图坐标系中，一个view的原点是以父视图坐上角为坐标原点。触控事件中getX()  getY() 得到的就是视图坐标系中的坐标。</p>
+<h3 id="1-3-触控事件——MotionEvent"><a href="#1-3-触控事件——MotionEvent" class="headerlink" title="1.3 触控事件——MotionEvent"></a>1.3 触控事件——MotionEvent</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//单点触摸按下动作</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> ACTION_DOWN=<span class="number">0</span>;</span><br><span class="line"><span class="comment">//单点触摸离开动作</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> ACTION_UP=<span class="number">1</span>;</span><br><span class="line"><span class="comment">//触摸点移动动作</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> ACTION_MOVE=<span class="number">2</span>;</span><br><span class="line"><span class="comment">//触摸点取消动作</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> ACTION_CACEL=<span class="number">3</span>;</span><br><span class="line"><span class="comment">//触摸动作超出边界</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> ACTION_OUTSIDE=<span class="number">4</span>;</span><br><span class="line"><span class="comment">//多点触摸按下动作</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> ACTION_POINTER_DOWN=<span class="number">5</span>;</span><br><span class="line"><span class="comment">//多点离开动作</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> ACTION_POINTER_UP=<span class="number">6</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="1-4-实现滑动的七种方法"><a href="#1-4-实现滑动的七种方法" class="headerlink" title="1.4 实现滑动的七种方法"></a>1.4 实现滑动的七种方法</h3><h4 id="1-4-1-layout-方法"><a href="#1-4-1-layout-方法" class="headerlink" title="1.4.1 layout()方法"></a>1.4.1 layout()方法</h4><p>onTouchEvent()计算滑动距离，不断layout()，让view跟随手指滑动。</p>
+<h4 id="1-4-2-offsetLeftAndrRight-和offsetTopAndrBottom"><a href="#1-4-2-offsetLeftAndrRight-和offsetTopAndrBottom" class="headerlink" title="1.4.2 offsetLeftAndrRight()和offsetTopAndrBottom()"></a>1.4.2 offsetLeftAndrRight()和offsetTopAndrBottom()</h4><p>系统提供的对上下、左右移动的封装，参数为偏移量</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//同时对left和right进行偏移</span></span><br><span class="line">offsetLeftAndrRight(offsetX)</span><br><span class="line"><span class="comment">//同时对top和bottom进行偏移</span></span><br><span class="line">offsetTopAndrBotton(offsetY)</span><br></pre></td></tr></table></figure>
+<h4 id="1-4-3-LayoutParams"><a href="#1-4-3-LayoutParams" class="headerlink" title="1.4.3 LayoutParams"></a>1.4.3 LayoutParams</h4><p>LayoutParams保存了一个view的参数，通过getLayoutParams()获取，然后进行修改</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LinearLayout.LayoutParams layoutParams=(LinearLayout.LayoutParams)getLayoutParams();</span><br><span class="line">layoutParams.leftMargin=getLeft()+offsetX;</span><br><span class="line">layoutParams.topMargin=getTop()+offsetY;</span><br><span class="line">setLayoutParams(layoutParams);</span><br></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ViewGroup.MarginLayoutParms layoutParams=(ViewGroup.MarginLayoutParams)getLayoutParms();</span><br><span class="line">layoutParms.leftMargin=getLeft()+offsetX();</span><br><span class="line">layoutParms.topMargin=getTop()+offsetY();</span><br><span class="line">setLayoutParams(layoutParms);</span><br></pre></td></tr></table></figure>
+<h4 id="1-4-4-scrollTo与scrollBy"><a href="#1-4-4-scrollTo与scrollBy" class="headerlink" title="1.4.4 scrollTo与scrollBy"></a>1.4.4 scrollTo与scrollBy</h4><p>scrollTo移动到某个位置，scrollBy移动某个增量。</p>
+<p>关键点：viewgroup中 移动的是子view,view中，移动的是view中的内容。</p>
+<p>移动方向问题，反向移动，可以理解为：view未动，移动的是屏幕</p>
+<h4 id="1-4-5-Scroller"><a href="#1-4-5-Scroller" class="headerlink" title="1.4.5 Scroller"></a>1.4.5 Scroller</h4><p>实现平滑滚动</p>
+<p>三个步骤：</p>
+<ul>
+<li>初始化Scroller</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//初始化Scroller</span></span><br><span class="line">mScroller=<span class="keyword">new</span> Scroller(context);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>重写computeScroll()方法，实现模拟滑动</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">computeScroll</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">super</span>.computeScroll();</span><br><span class="line">	<span class="comment">//判断Scroller是否执行完毕</span></span><br><span class="line">	<span class="keyword">if</span>(mScroller.computeScrollOffset())&#123;</span><br><span class="line">		((View)getParent()).scrollTo(mScroller.getCurrX(),mScroller.getCurrY());</span><br><span class="line">		<span class="comment">//通过重绘不断调用computeScroll</span></span><br><span class="line">		invalidate();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>startScroll 开启模拟过程</li>
+</ul>
+<h4 id="1-4-6-属性动画"><a href="#1-4-6-属性动画" class="headerlink" title="1.4.6 属性动画"></a>1.4.6 属性动画</h4><h4 id="1-4-7-ViewDragHelper"><a href="#1-4-7-ViewDragHelper" class="headerlink" title="1.4.7 ViewDragHelper"></a>1.4.7 ViewDragHelper</h4><ul>
+<li>初始化ViewDragHelper</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mViewDragHelper=ViewDragHelper.create(<span class="keyword">this</span>,callback);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>拦截事件</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onInterceptTouchEvent</span><span class="params">(MotionEvent ev)</span>	</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> mViewDragHelper.shouldInterceptTouchEvent(ev);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTouchEvent</span><span class="params">(MotionEvent event)</span></span>&#123;</span><br><span class="line">	<span class="comment">//将触摸事件传递给ViewDragHelper,此操作必不可少</span></span><br><span class="line">	mViewDragHelper.processTouchEvent(event);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>处理computeScroll()</li>
+</ul>
+<p>模板写法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">computeScroll</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(mViewDragHelper.continueSetting(<span class="keyword">true</span>))&#123;</span><br><span class="line">		ViewCompat.postInvalidateOnAnimation(<span class="keyword">this</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>处理回调Callback</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> ViewDragHelper.Callback callback=<span class="keyword">new</span> ViewDragHelper.Callback()&#123;</span><br><span class="line"><span class="meta">@Overrride</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">tryCaptureView</span><span class="params">(View child,<span class="keyword">int</span> pointerId)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">false</span>;<span class="comment">//根据具体需求修改</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>滑动方法</p>
+<p>clampViewPositionVertical()</p>
+<p>clampViewPositionHorizontal()</p>
+<h2 id="2-Android-绘图机制与处理技巧"><a href="#2-Android-绘图机制与处理技巧" class="headerlink" title="2.Android 绘图机制与处理技巧"></a>2.Android 绘图机制与处理技巧</h2><h3 id="2-1屏幕的尺寸信息"><a href="#2-1屏幕的尺寸信息" class="headerlink" title="2.1屏幕的尺寸信息"></a>2.1屏幕的尺寸信息</h3><h4 id="2-1-1-屏幕参数"><a href="#2-1-1-屏幕参数" class="headerlink" title="2.1.1 屏幕参数"></a>2.1.1 屏幕参数</h4><ul>
+<li>屏幕大小</li>
+</ul>
+<p>对角线长度</p>
+<ul>
+<li>分辨率</li>
+</ul>
+<p>手机屏幕像素点个数</p>
+<ul>
+<li>PPI </li>
+</ul>
+<p>Android使用mdpi(密度值为160)的屏幕作为标准，在这个屏幕上1px=1dp.其他屏幕按比例换算。</p>
+<p>mdpi 1dp=1px</p>
+<p>hdpi 1dp=1.5px</p>
+<p>xhdpi 1dp=2px</p>
+<p>xxhdpi 1dp=3px</p>
+<h3 id="2-2-2D绘图基础"><a href="#2-2-2D绘图基础" class="headerlink" title="2.2 2D绘图基础"></a>2.2 2D绘图基础</h3><p>paint属性</p>
+<ul>
+<li>setAntiAlias()  //设置画笔的锯齿效果</li>
+<li>setColor()   //设置画笔的颜色</li>
+<li>setARGB()  //设置画笔的ARGB值</li>
+<li>setAlpha()  //设置画笔的Alpha值</li>
+<li>setTextSize()  //设置字体的尺寸</li>
+<li>setStyle()   //设置画笔的风格</li>
+<li>setStrokeWidth()  //设置空心边框的宽度</li>
+</ul>
+<h4 id="2-2-1-canvas-绘图API"><a href="#2-2-1-canvas-绘图API" class="headerlink" title="2.2.1 canvas 绘图API"></a>2.2.1 canvas 绘图API</h4><ul>
+<li>DrawPonit 绘制点</li>
+</ul>
+<p>canvas.drawPoint(x,y,paint)</p>
+<ul>
+<li>DrawLine 绘制直线</li>
+</ul>
+<p>canvas.drawLine(startX,startY,endX,endY,paint)</p>
+<ul>
+<li>DrawLines 绘制多条直线</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">floast[] pts=&#123;startX1,startY1,endX1,endY1,...&#125;</span><br><span class="line">canvas.drawLines(pts,ponit)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>DrawRect 绘制矩形</li>
+</ul>
+<p>canvas.drawRect(left,top,right,bottom,paint)</p>
+<ul>
+<li>DrawRoundRect 绘制圆角矩形</li>
+</ul>
+<p>canvas.drawRoundRect(left,top,bottom,raidusX,radiuxY,paint)</p>
+<ul>
+<li>DrawCircle 绘制圆</li>
+</ul>
+<p>canvas.drawCircle(circleX,circleY,radius,paint)</p>
+<ul>
+<li>DrawArc 绘制弧形，扇形</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">paint.setStyle(Paint.Style.STROKE);</span><br><span class="line">canvas.drawArc(left,top,right,bottom,startAngle,sweepAngle,userCenter,paint)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>DarwOval 绘制椭圆</li>
+</ul>
+<p>canvas.drawOval(left,top,right,bottom,paint)</p>
+<ul>
+<li>DrawText 绘制文本</li>
+</ul>
+<p>canvas.drawText(text,startX,startY,paint)</p>
+<ul>
+<li>DrawPosText 在指定位置绘制文本</li>
+</ul>
+<p>canvas.drawPosText(text,new float[]{X1,Y1,X2,Y2,…Xn,Yn})</p>
+<ul>
+<li>DrawPath 绘制路径</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Path path=<span class="keyword">new</span> Path();</span><br><span class="line">path.moveTo(<span class="number">50</span>,<span class="number">50</span>);</span><br><span class="line">path.lineTo(<span class="number">100</span>,<span class="number">100</span>);</span><br><span class="line">path.lineTo(<span class="number">100</span>,<span class="number">300</span>);</span><br><span class="line">path.lineTo(<span class="number">300</span>,<span class="number">50</span>);</span><br><span class="line">canvas.drawPath(path,paint);</span><br></pre></td></tr></table></figure>
+<h3 id="2-3-Android-Xml绘图"><a href="#2-3-Android-Xml绘图" class="headerlink" title="2.3 Android Xml绘图"></a>2.3 Android Xml绘图</h3><h4 id="2-3-1-bitmap"><a href="#2-3-1-bitmap" class="headerlink" title="2.3.1 bitmap"></a>2.3.1 bitmap</h4><p>src引用</p>
+<h4 id="2-3-2-Shape"><a href="#2-3-2-Shape" class="headerlink" title="2.3.2 Shape"></a>2.3.2 Shape</h4><p>注意：shape支持的参数</p>
+<h4 id="2-3-3-Layer"><a href="#2-3-3-Layer" class="headerlink" title="2.3.3 Layer"></a>2.3.3 Layer</h4><p>图层示例：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"&gt;</span></span><br><span class="line"><span class="meta">&lt;layer-list xmlns:android="http://schemas.android.com/apk/res/android"&gt;</span></span><br><span class="line"><span class="meta">	&lt;item android:drawable="@drawable/ic_launcher"/&gt;</span></span><br><span class="line"><span class="meta">	&lt;item android:drawable="@drawable/ic_launcher"</span></span><br><span class="line"><span class="meta">			android:left="10.0dip"</span></span><br><span class="line"><span class="meta">			android:top="10.0dip"</span></span><br><span class="line"><span class="meta">			android:right="10.0dip"</span></span><br><span class="line"><span class="meta">			android:bottom="10.0dip"/&gt;</span></span><br><span class="line"><span class="meta">&lt;/layer-list&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-3-4-selector"><a href="#2-3-4-selector" class="headerlink" title="2.3.4 selector"></a>2.3.4 selector</h4><p>主要实现不同效果</p>
+<p>selector中可以组合使用shape</p>
+<h3 id="2-4-Android-绘图技巧"><a href="#2-4-Android-绘图技巧" class="headerlink" title="2.4 Android 绘图技巧"></a>2.4 Android 绘图技巧</h3><h4 id="2-4-1-canvas"><a href="#2-4-1-canvas" class="headerlink" title="2.4.1 canvas"></a>2.4.1 canvas</h4><p>Canvas，几个非常有用的方法</p>
+<ul>
+<li>Canvas.save()</li>
+<li>Canvas.restore()</li>
+<li>Canvas.translate()</li>
+<li>Canvas.rotate()</li>
+</ul>
+<p>save 保存画布，让后续操作就像在一个新的图层上操作一样</p>
+<p>restore  合并图层，save之后的所有图像与save之前的图像合并</p>
+<p>translate  坐标系的平移</p>
+<p>rotate  也可以理解为坐标系的翻转</p>
+<p>可以利用rotate画布的旋转和translate坐标系的平移实现一些复杂的效果</p>
+<h4 id="2-4-2-Layer图层"><a href="#2-4-2-Layer图层" class="headerlink" title="2.4.2 Layer图层"></a>2.4.2 Layer图层</h4><p>通过saveLayer()方法  saveLayerAlpha()方法将一个图层入栈，使用restore()方法  restoreToCount()方法将一个图层出栈。</p>
+<p>出栈的时候，会把图像绘制到上层Canvas上。</p>
+<h3 id="2-5-Android-图像处理之色彩特效处理"><a href="#2-5-Android-图像处理之色彩特效处理" class="headerlink" title="2.5 Android 图像处理之色彩特效处理"></a>2.5 Android 图像处理之色彩特效处理</h3><h4 id="2-5-1-色彩矩阵分析"><a href="#2-5-1-色彩矩阵分析" class="headerlink" title="2.5.1 色彩矩阵分析"></a>2.5.1 色彩矩阵分析</h4><ul>
+<li>色调–物体传播的颜色</li>
+<li>饱和度–颜色的纯度  从0到100%</li>
+<li>亮度–颜色的相对明暗程度</li>
+</ul>
+<p>颜色矩阵  ColorMatrix</p>
+<p>这块比较复杂，专门写一篇文章，这里跳过</p>
+<h3 id="2-6-Android图像处理之画笔特效处理"><a href="#2-6-Android图像处理之画笔特效处理" class="headerlink" title="2.6 Android图像处理之画笔特效处理"></a>2.6 Android图像处理之画笔特效处理</h3><h4 id="2-6-1-PorterDuffXfermode"><a href="#2-6-1-PorterDuffXfermode" class="headerlink" title="2.6.1 PorterDuffXfermode"></a>2.6.1 PorterDuffXfermode</h4><p>控制两个图像的混合显示模式</p>
+<p>dst 是先画的图形   src是后画的图形</p>
+<p>最常用的是通过DST_IN  SRC_IN实现将一个矩形图片变成圆角图片或者圆形图片的效果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">	mBitmap=BitmapFactory.decodeResouce(getResources(),R.drawable.test1);</span><br><span class="line">	mOut=Bitmap.createBitamp(mBitmap.getWidth(),mBitmap.getHeight(),Bitmap.Config.ARGB_8888);</span><br><span class="line">	Canvas canvas=<span class="keyword">new</span> Canvas(mOut);</span><br><span class="line">	mPaint =<span class="keyword">new</span> Paint();</span><br><span class="line">	mPaint.setAntiAlias(<span class="keyword">true</span>);</span><br><span class="line">canvas.drawRoundRect(<span class="number">0</span>,<span class="number">0</span>,mBitmap.getWidth(),mBitmap.getHeight(),<span class="number">80</span>,<span class="number">80</span>,mPaint);</span><br><span class="line">mPaint.setXfermode(<span class="keyword">new</span> PorterDuffXfermode(PorterDuff.Mode.SRC_IN));</span><br><span class="line"></span><br><span class="line">canvas.drawBitmap(mBitmap,<span class="number">0</span>,<span class="number">0</span>,mPaint);</span><br></pre></td></tr></table></figure>
+<h3 id="2-7-SurfaceView"><a href="#2-7-SurfaceView" class="headerlink" title="2.7 SurfaceView"></a>2.7 SurfaceView</h3><h4 id="2-7-1-surfaceView与view"><a href="#2-7-1-surfaceView与view" class="headerlink" title="2.7.1 surfaceView与view"></a>2.7.1 surfaceView与view</h4><ul>
+<li>view主要用于主动更新的情况下，surfaceView主要适用于被动更新，例如频繁的刷新</li>
+<li>view在主线程中对画面进行刷新，surfaceView通过一个子线程进行页面的刷新</li>
+<li>view在绘图时没有使用双缓冲机制，surfaceView在底层实现机制中就已经实现了双缓冲机制</li>
+</ul>
+<h4 id="2-7-2-创建一个surfaceview的模板"><a href="#2-7-2-创建一个surfaceview的模板" class="headerlink" title="2.7.2 创建一个surfaceview的模板"></a>2.7.2 创建一个surfaceview的模板</h4><ul>
+<li>创建SurfaceView</li>
+</ul>
+<p>创建自定义的SurfaceView继承自SurfaceView,并实现两个接口-SurfaceHolder.Callback和Runnable</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SurfaceViewTemplate</span> <span class="keyword">extends</span> <span class="title">SurfaceView</span> <span class="keyword">implements</span> <span class="title">SurfaceHolder</span>.<span class="title">Callback</span>,<span class="title">Runnable</span></span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>初始化SurfaceView</li>
+</ul>
+<p>在自定义surfaceview中，通常需要定义三个成员变量</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//SurfaceHolder</span></span><br><span class="line"><span class="keyword">private</span> SurfaceHolder mHolder;</span><br><span class="line"><span class="comment">//用于绘图的Canvas</span></span><br><span class="line"><span class="keyword">private</span> Canvas mCanvas;</span><br><span class="line"><span class="comment">//子线程标志位</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">boolean</span> mIsDrawing;</span><br></pre></td></tr></table></figure>
+<p>初始化方法就是对surfaceholder进行初始化</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mHolder=getHolder();</span><br><span class="line">mHolder.addCallback(<span class="keyword">this</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用surfaceview</li>
+</ul>
+<p>在surfaceCreated()方法中开启子线程进行绘制，在子线程使用一个while（mIsDrawing）的循环不停进行绘制，通过lockCanvas()方法获得的Canvas对象进行绘制，通过unlockCanvasAndPost(mCanvas)方法对画布内容进行提交。</p>
+<p>模板代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SurfaceViewTemplate</span> <span class="keyword">extends</span> <span class="title">SurfaceView</span> <span class="keyword">implements</span> <span class="title">SurfaceHolder</span>.<span class="title">Callback</span>,<span class="title">Runnable</span></span>&#123;</span><br><span class="line"><span class="keyword">private</span> SurfaceHolder mHolder;</span><br><span class="line"><span class="keyword">private</span> Canvas mCanvas;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">boolean</span> mIsDrawing;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">SurfaceViewTemplate</span><span class="params">(Context context)</span></span>&#123;</span><br><span class="line">	<span class="keyword">super</span>(context);</span><br><span class="line">	initView();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">SurfaceViewTemplate</span><span class="params">(Context context,AttributeSet attrs)</span></span>&#123;</span><br><span class="line">	<span class="keyword">super</span>(context,attrs);</span><br><span class="line">	initView();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">SurfaceViewTemplate</span><span class="params">(Context context,AttributeSet attrs,<span class="keyword">int</span> defStyle)</span></span>&#123;</span><br><span class="line">	<span class="keyword">super</span>(context,attrs,defStyle);</span><br><span class="line">	initView();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initView</span><span class="params">()</span></span>&#123;</span><br><span class="line">	mHolder=getHolder();</span><br><span class="line">	mHolder.setCallback(<span class="keyword">this</span>);</span><br><span class="line">	setFocusable(<span class="keyword">true</span>);</span><br><span class="line">	setFocusableInTouchMode(<span class="keyword">true</span>);</span><br><span class="line">	<span class="keyword">this</span>.setKeepScreenOn(<span class="keyword">true</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">surfaceCreate</span><span class="params">(SurfaceHolder holder)</span></span>&#123;</span><br><span class="line">	mIdDrawing=<span class="keyword">true</span>;</span><br><span class="line">	<span class="keyword">new</span> Thread(<span class="keyword">this</span>).start();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">surfaceChanged</span><span class="params">(SurfaceHolder holder,<span class="keyword">int</span> format, <span class="keyword">int</span> width,<span class="keyword">int</span> height)</span></span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">surfaceDestroyed</span><span class="params">(SurfaceHolder holder)</span></span>&#123;</span><br><span class="line">	mIdDrawing=<span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">while</span>(mIdDrawing)&#123;</span><br><span class="line">		draw();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">try</span>&#123;</span><br><span class="line">		mCanvas=mHolder.lockCanvas();</span><br><span class="line">		<span class="comment">//draw something</span></span><br><span class="line">	&#125; <span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">	&#125; <span class="keyword">finally</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(mCanvas!=<span class="keyword">null</span>)&#123;</span><br><span class="line">			mHolder.unlockCanvasAndPost(mCanvas);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blogliu.com.cn/2017/01/18/Android群英传读书笔记系列（二）/" data-id="cjos3593w00149d0ibgygp4gh" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/笔记/">笔记</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/读书/">读书</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/01/16/工作以来的一些感悟/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">工作以来的一些感悟</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MarkDown/">MarkDown</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/心情随笔/">心情随笔</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/移动开发/">移动开发</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EventBus/">EventBus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MarkDown/">MarkDown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/笔记/">笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编辑器/">编辑器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书/">读书</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 15px;">Android</a> <a href="/tags/EventBus/" style="font-size: 15px;">EventBus</a> <a href="/tags/GitHub/" style="font-size: 15px;">GitHub</a> <a href="/tags/MarkDown/" style="font-size: 10px;">MarkDown</a> <a href="/tags/生活/" style="font-size: 20px;">生活</a> <a href="/tags/笔记/" style="font-size: 15px;">笔记</a> <a href="/tags/编辑器/" style="font-size: 10px;">编辑器</a> <a href="/tags/读书/" style="font-size: 15px;">读书</a> <a href="/tags/随笔/" style="font-size: 20px;">随笔</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/01/18/Android群英传读书笔记系列（二）/">Android群英传读书笔记系列（二）</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/16/工作以来的一些感悟/">工作以来的一些感悟</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/15/Android群英传读书笔记系列（一）/">Android群英传读书笔记系列（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2016/12/12/轻松搞定MarkDown/">轻松搞定MarkDown</a>
+          </li>
+        
+          <li>
+            <a href="/2016/12/10/再会/">再会</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Liu Teng<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
