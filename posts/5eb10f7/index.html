@@ -17,21 +17,21 @@
   <meta http-equiv="window-target" content="_top">
   
   
-  <title>说点什么 | 刘腾的博客</title>
-  <meta name="description" content="这个荒芜之地已接近半年没有更新过了，幸运的是它还一直健在。我也不知道为什么自从更新几次之后就再也没能有心情和动力在这里做点什么，尽管这么长时间里我的生活已经改变了许多，但在这里却一点也没有体现。之前的一段时间曾一度想就此关闭，不过应该鲜有人知道在那段时间里原来的域名指向的并不是这儿。不过后来还是没有舍得，索性就恢复了。还好一切还是原来的样子，所有的功能也都正常。 这半年我来到了新的公司，认识">
-<meta name="keywords" content="生活,随笔">
+  <title>关于HTTP请求与响应 | 刘腾的博客</title>
+  <meta name="description" content="1.HTTP 请求什么是HTTP 请求？http请求是一台电脑为了和另一台电脑进行交流而发送的一个信息包。其实，他的核心就是客户端发送给服务器端的一个二进制的数据包。 一个http请求通常由以下部分组成： 请求行（Request Line）、请求头（Header）、空行和请求数据（An Optional Body of the Request）四个部分组成。 以Get请求为例，下图为一个Get">
+<meta name="keywords" content="前端,HTTP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="说点什么">
-<meta property="og:url" content="http://blogliu.com.cn/posts/55640277/index.html">
+<meta property="og:title" content="关于HTTP请求与响应">
+<meta property="og:url" content="http://blogliu.com.cn/posts/5eb10f7/index.html">
 <meta property="og:site_name" content="刘腾的博客">
-<meta property="og:description" content="这个荒芜之地已接近半年没有更新过了，幸运的是它还一直健在。我也不知道为什么自从更新几次之后就再也没能有心情和动力在这里做点什么，尽管这么长时间里我的生活已经改变了许多，但在这里却一点也没有体现。之前的一段时间曾一度想就此关闭，不过应该鲜有人知道在那段时间里原来的域名指向的并不是这儿。不过后来还是没有舍得，索性就恢复了。还好一切还是原来的样子，所有的功能也都正常。 这半年我来到了新的公司，认识">
+<meta property="og:description" content="1.HTTP 请求什么是HTTP 请求？http请求是一台电脑为了和另一台电脑进行交流而发送的一个信息包。其实，他的核心就是客户端发送给服务器端的一个二进制的数据包。 一个http请求通常由以下部分组成： 请求行（Request Line）、请求头（Header）、空行和请求数据（An Optional Body of the Request）四个部分组成。 以Get请求为例，下图为一个Get">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-23T08:40:17.393Z">
+<meta property="og:updated_time" content="2018-11-24T06:49:08.639Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="说点什么">
-<meta name="twitter:description" content="这个荒芜之地已接近半年没有更新过了，幸运的是它还一直健在。我也不知道为什么自从更新几次之后就再也没能有心情和动力在这里做点什么，尽管这么长时间里我的生活已经改变了许多，但在这里却一点也没有体现。之前的一段时间曾一度想就此关闭，不过应该鲜有人知道在那段时间里原来的域名指向的并不是这儿。不过后来还是没有舍得，索性就恢复了。还好一切还是原来的样子，所有的功能也都正常。 这半年我来到了新的公司，认识">
+<meta name="twitter:title" content="关于HTTP请求与响应">
+<meta name="twitter:description" content="1.HTTP 请求什么是HTTP 请求？http请求是一台电脑为了和另一台电脑进行交流而发送的一个信息包。其实，他的核心就是客户端发送给服务器端的一个二进制的数据包。 一个http请求通常由以下部分组成： 请求行（Request Line）、请求头（Header）、空行和请求数据（An Optional Body of the Request）四个部分组成。 以Get请求为例，下图为一个Get">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://blogliu.com.cn/posts/55640277/index.html">
+  <link rel="canonical" href="http://blogliu.com.cn/posts/5eb10f7/index.html">
   
     <link rel="alternate" href="/atom.xml" title="刘腾的博客" type="application/atom+xml">
   
@@ -346,16 +346,25 @@
 
   
   
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-HTTP-请求"><span class="toc-number">1.</span> <span class="toc-text">1.HTTP 请求</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是HTTP-请求？"><span class="toc-number">1.1.</span> <span class="toc-text">什么是HTTP 请求？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-HTTP响应"><span class="toc-number">2.</span> <span class="toc-text">2.HTTP响应</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是HTTP响应？"><span class="toc-number">2.1.</span> <span class="toc-text">什么是HTTP响应？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-善用Chrome开发者工具"><span class="toc-number">3.</span> <span class="toc-text">3.善用Chrome开发者工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-如何使用curl命令"><span class="toc-number">4.</span> <span class="toc-text">4.如何使用curl命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#curl用法，只介绍一般用法，详细用法参阅官网。"><span class="toc-number">4.1.</span> <span class="toc-text">curl用法，只介绍一般用法，详细用法参阅官网。</span></a></li></ol></li></ol>
+    </nav>
+  </div>
+</aside>
+
 <main class="main" role="main">
   <div class="content">
-  <article id="post-说点什么" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
+  <article id="post-关于HTTP请求与响应" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      说点什么
+      关于HTTP请求与响应
     </h1>
   
 
@@ -363,20 +372,20 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/posts/55640277/" class="article-date">
-	  <time datetime="2016-08-03T03:13:25.000Z" itemprop="datePublished">2016-08-03</time>
+	<a href="/posts/5eb10f7/" class="article-date">
+	  <time datetime="2018-11-24T05:15:54.000Z" itemprop="datePublished">2018-11-24</time>
 	</a>
 </span>
         
   <span class="article-category">
     <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/心情随笔/">心情随笔</a>
+    <a class="article-category-link" href="/categories/Web前端/">Web前端</a>
   </span>
 
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/tags/生活/">生活</a>, <a class="article-tag-link" href="/tags/随笔/">随笔</a>
+	<a class="article-tag-link" href="/tags/HTTP/">HTTP</a>, <a class="article-tag-link" href="/tags/前端/">前端</a>
   </span>
 
 
@@ -389,16 +398,68 @@
 	</span>
 
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/posts/55640277/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/posts/5eb10f7/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <p>   这个荒芜之地已接近半年没有更新过了，幸运的是它还一直健在。我也不知道为什么自从更新几次之后就再也没能有心情和动力在这里做点什么，尽管这么长时间里我的生活已经改变了许多，但在这里却一点也没有体现。之前的一段时间曾一度想就此关闭，不过应该鲜有人知道在那段时间里原来的域名指向的并不是这儿。不过后来还是没有舍得，索性就恢复了。还好一切还是原来的样子，所有的功能也都正常。</p>
-<p>这半年我来到了新的公司，认识了新的人，开始了新的生活，但这并不意味着就和老朋友们再无瓜葛，而是仍有不少交集。其实正是前两天某个朋友说要弄域名的时候，才让我决定了要重新开垦这片土地。</p>
-<p>时间经历变化很多，很多熟悉的人都有了新的归宿，有人难得浪子回头，有人开始浪迹天涯，有人依然浪人浪语，可惜没人锒铛入狱。总之，大家都有了新的开始。但这些开始也仅仅只是开始，半年的时间放在许多事情的完整历程当中，还是显得那么短暂。但愿人长久吧。</p>
-<p>不知道如果我不动声色的话，现在的这些文字多久后才会被人不经意间看到。但是当你看到时，还请刻意回首一下这一年过去的时光，看看自己是否有所改变，是否记忆犹鲜，不过无论怎样，都愿我们前程似锦，气象万千。</p>
+        <h2 id="1-HTTP-请求"><a href="#1-HTTP-请求" class="headerlink" title="1.HTTP 请求"></a>1.HTTP 请求</h2><h3 id="什么是HTTP-请求？"><a href="#什么是HTTP-请求？" class="headerlink" title="什么是HTTP 请求？"></a>什么是HTTP 请求？</h3><p>http请求是一台电脑为了和另一台电脑进行交流而发送的一个信息包。其实，他的核心就是客户端发送给服务器端的一个二进制的数据包。</p>
+<p>一个http请求通常由以下部分组成：</p>
+<p><strong>请求行（Request Line）、请求头（Header）、空行和请求数据（An Optional Body of the Request）四个部分组成。</strong></p>
+<p>以Get请求为例，下图为一个Get请求的示例：<br>curl -s -v “<a href="https://www.baidu.com&quot;" target="_blank" rel="noopener">https://www.baidu.com&quot;</a></p>
+<p>![Get请求图片][<a href="http://itimage.oss-cn-shanghai.aliyuncs.com/blogliu/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-11-24%20%E4%B8%8B%E5%8D%881.37.33.png]" target="_blank" rel="noopener">http://itimage.oss-cn-shanghai.aliyuncs.com/blogliu/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-11-24%20%E4%B8%8B%E5%8D%881.37.33.png]</a></p>
+<p><strong>第一部分：请求行，用来说明请求类型，要访问的资源以及所使用的HTTP协议版本。</strong></p>
+<p>GET说明请求类型为GET， HTTP/1.1 说明使用的是HTTP1.1版本。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">HTTP1.0定义了三种请求方法：GET POST HEAD</span><br><span class="line">HTTP1.1新增了五种请求方法：OPTIONS PUT DELETE TRACE CONNECT</span><br><span class="line"></span><br><span class="line">GET 请求指定页面信息，并返回实体主体。</span><br><span class="line">POST 多用于提交表单或者上传文件，数据包含在请求体中。</span><br><span class="line">PUT 从客户端向服务器传送的数据取代指定的文档的内容。</span><br><span class="line">DELETE 请求服务器删除指定的页面。</span><br><span class="line">CONNNECT http1.1协议中预留给能够将连接改为管道方式的代理服务器。</span><br><span class="line">OPTIONS 允许客户端查看服务器的性能。</span><br><span class="line">TRACE 回显服务器收到的请求，主要用于测试或者诊断。</span><br><span class="line">HEAD 类似于GET请求，只不过返回响应中没有具体的内容，用于获取报头。</span><br></pre></td></tr></table></figure>
+<p><strong>第二部分：请求头，用来说明服务器要使用的附加信息</strong></p>
+<ul>
+<li>Host指出请求的目的地。</li>
+<li>User-Agent 客户端发起请求的途径</li>
+<li>Accept 客户端希望接收的数据类型</li>
+</ul>
+<p><strong>第三部分：空行 请求头后面的空行是必须的。</strong></p>
+<p>即使第四部分的请求数据为空，也必须有空行。</p>
+<p><strong>第四部分：请求数据也叫请求体。可以添加任意的其他数据。可为空</strong></p>
+<h2 id="2-HTTP响应"><a href="#2-HTTP响应" class="headerlink" title="2.HTTP响应"></a>2.HTTP响应</h2><h3 id="什么是HTTP响应？"><a href="#什么是HTTP响应？" class="headerlink" title="什么是HTTP响应？"></a>什么是HTTP响应？</h3><p>http响应是服务端为了响应客户端之前发的请求而发送给客户端的一个数据包。他包含了客户端要求的信息。比如，当你向一个天气查询的服务器发送有关天气情况的请求时，服务器就会返回给你相关的天气信息。</p>
+<p>一个http响应通常由以下部分组成：</p>
+<p><strong>状态行(Status Line) 、消息报头(Headers)、空行、和响应正文。</strong></p>
+<p>以刚才的请求为例，下图为服务器返回信息。</p>
+<p>![Get响应图片][<a href="http://itimage.oss-cn-shanghai.aliyuncs.com/blogliu/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-11-24%20%E4%B8%8B%E5%8D%882.03.43.png]" target="_blank" rel="noopener">http://itimage.oss-cn-shanghai.aliyuncs.com/blogliu/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-11-24%20%E4%B8%8B%E5%8D%882.03.43.png]</a></p>
+<p><strong>第一部分：状态行，由HTTP协议版本号，状态码，状态消息 三部分组成。</strong></p>
+<p><strong>第二部分：消息报头，用来说明客户端要使用的一些附加信息</strong></p>
+<ul>
+<li>Server服务器类型</li>
+<li>Date 生成响应的日期和时间。</li>
+<li>Content-Type:指定了MIME类型的HTML</li>
+</ul>
+<p><strong>第三部分：空行，消息报头后面的空行是必须的。</strong></p>
+<p>**第四部分：响应正文，服务器返回给客户端的文本消息。</p>
+<p>空行后面的html部分为响应正文。</p>
+<h2 id="3-善用Chrome开发者工具"><a href="#3-善用Chrome开发者工具" class="headerlink" title="3.善用Chrome开发者工具"></a>3.善用Chrome开发者工具</h2><p>利用Chrome浏览器可以很方便查看我们浏览网页相关的请求与响应。在浏览器中鼠标右键，然后点击检查就可以打开控制台。</p>
+<p>![控制台][<a href="http://itimage.oss-cn-shanghai.aliyuncs.com/blogliu/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-11-24%20%E4%B8%8B%E5%8D%882.23.25.png]" target="_blank" rel="noopener">http://itimage.oss-cn-shanghai.aliyuncs.com/blogliu/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-11-24%20%E4%B8%8B%E5%8D%882.23.25.png]</a></p>
+<ul>
+<li><p>利用工具查看请求<br>![查看请求][<a href="http://itimage.oss-cn-shanghai.aliyuncs.com/blogliu/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-11-24%20%E4%B8%8B%E5%8D%882.25.31.png]" target="_blank" rel="noopener">http://itimage.oss-cn-shanghai.aliyuncs.com/blogliu/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-11-24%20%E4%B8%8B%E5%8D%882.25.31.png]</a></p>
+</li>
+<li><p>利用工具查看响应<br>![查看响应][<a href="http://itimage.oss-cn-shanghai.aliyuncs.com/blogliu/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-11-24%20%E4%B8%8B%E5%8D%882.28.27.png]" target="_blank" rel="noopener">http://itimage.oss-cn-shanghai.aliyuncs.com/blogliu/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-11-24%20%E4%B8%8B%E5%8D%882.28.27.png]</a></p>
+</li>
+</ul>
+<h2 id="4-如何使用curl命令"><a href="#4-如何使用curl命令" class="headerlink" title="4.如何使用curl命令"></a>4.如何使用curl命令</h2><p>curl 全称 CommandLine URL ,是在命令行下工作，利用URL的语法进行数据的传输或者文件的传输。多用于Unix和Linux系统，开源工具，功能十分强大。</p>
+<h3 id="curl用法，只介绍一般用法，详细用法参阅官网。"><a href="#curl用法，只介绍一般用法，详细用法参阅官网。" class="headerlink" title="curl用法，只介绍一般用法，详细用法参阅官网。"></a>curl用法，只介绍一般用法，详细用法参阅<a href="https://curl.haxx.se/" target="_blank" rel="noopener">官网</a>。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -[选项][URL]</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>-v 选项，指定该选项后，可跟踪URL的连接信息，返回信息包含很多重要信息：1.域名解释过程。2请求头信息。3回应头信息。</p>
+</li>
+<li><p>-u 选项，带用户验证的连接。可以访问或获取用户验证的URL。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -u username:password https://127.0.0.1/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>-d选项，带请求参数的连接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -d &apos;user=liuteng&amp;age=18&apos; http://xxxx/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>-X选项，指定请求方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET www.baidu.com</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>curl还有很多实用实用的功能，后续用户持续更新。</p>
 
       
     </div>
@@ -408,7 +469,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://blogliu.com.cn/posts/55640277/" title="说点什么" target="_blank" rel="external">http://blogliu.com.cn/posts/55640277/</a>
+      <a href="http://blogliu.com.cn/posts/5eb10f7/" title="关于HTTP请求与响应" target="_blank" rel="external">http://blogliu.com.cn/posts/5eb10f7/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -454,15 +515,20 @@
   
   <ul class="pager pull-left">
     
-    <li class="prev">
-      <a href="/posts/209fe3d4/" title="再会"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
-    </li>
-    
     
     <li class="next">
-      <a href="/posts/71d27a28/" title="EventBus源码解读"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/posts/cddb9e34/" title="Android群英传读书笔记系列（二）"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
     
   </ul>
   
