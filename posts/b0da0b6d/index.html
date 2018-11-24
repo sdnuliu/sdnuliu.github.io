@@ -17,19 +17,21 @@
   <meta http-equiv="window-target" content="_top">
   
   
-  <title>刘腾的博客</title>
-  <meta name="description" content="一个低调的移动端开发工程师，前端工程师，UI设计师">
-<meta property="og:type" content="website">
-<meta property="og:title" content="刘腾的博客">
-<meta property="og:url" content="http://blogliu.com.cn/index.html">
+  <title>HTML的空元素和可替换元素 | 刘腾的博客</title>
+  <meta name="description" content="HTML所有元素参考 空元素 什么是HTML 元素？  HTML元素指的是从开始标签（start tag）到结束标签（end tag）的所有代码。   1&amp;lt;tagname&amp;gt; Content goes here...&amp;lt;/tagname&amp;gt; 比如：12&amp;lt;p&amp;gt;我的第一个段落&amp;lt;/p&amp;gt;&amp;lt;h1&amp;gt;我的第一行代码&amp;lt;/h1&amp;gt;  什么是空标签？">
+<meta name="keywords" content="前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTML的空元素和可替换元素">
+<meta property="og:url" content="http://blogliu.com.cn/posts/b0da0b6d/index.html">
 <meta property="og:site_name" content="刘腾的博客">
-<meta property="og:description" content="一个低调的移动端开发工程师，前端工程师，UI设计师">
+<meta property="og:description" content="HTML所有元素参考 空元素 什么是HTML 元素？  HTML元素指的是从开始标签（start tag）到结束标签（end tag）的所有代码。   1&amp;lt;tagname&amp;gt; Content goes here...&amp;lt;/tagname&amp;gt; 比如：12&amp;lt;p&amp;gt;我的第一个段落&amp;lt;/p&amp;gt;&amp;lt;h1&amp;gt;我的第一行代码&amp;lt;/h1&amp;gt;  什么是空标签？">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-11-24T14:55:41.403Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="刘腾的博客">
-<meta name="twitter:description" content="一个低调的移动端开发工程师，前端工程师，UI设计师">
+<meta name="twitter:title" content="HTML的空元素和可替换元素">
+<meta name="twitter:description" content="HTML所有元素参考 空元素 什么是HTML 元素？  HTML元素指的是从开始标签（start tag）到结束标签（end tag）的所有代码。   1&amp;lt;tagname&amp;gt; Content goes here...&amp;lt;/tagname&amp;gt; 比如：12&amp;lt;p&amp;gt;我的第一个段落&amp;lt;/p&amp;gt;&amp;lt;h1&amp;gt;我的第一行代码&amp;lt;/h1&amp;gt;  什么是空标签？">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://blogliu.com.cn/index.html">
+  <link rel="canonical" href="http://blogliu.com.cn/posts/b0da0b6d/index.html">
   
     <link rel="alternate" href="/atom.xml" title="刘腾的博客" type="application/atom+xml">
   
@@ -343,409 +345,228 @@
 </aside>
 
   
-  <main class="main" role="main">
   
-  <div class="content article-list">
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#空元素"><span class="toc-number">1.</span> <span class="toc-text">空元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#可替换元素"><span class="toc-number">2.</span> <span class="toc-text">可替换元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#名词解释"><span class="toc-number">3.</span> <span class="toc-text">名词解释</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-HTML的空元素和可替换元素" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
     
-      <article class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
+    <div class="article-header">
+      
+        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/posts/b0da0b6d/">HTML的空元素和可替换元素</a>
+    <h1 class="article-title" itemprop="name">
+      HTML的空元素和可替换元素
     </h1>
   
 
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
+      
+      <div class="article-meta">
+        <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/posts/b0da0b6d/" class="article-date">
-	  <time datetime="2018-11-24T13:50:54.000Z" itemprop="datePublished">11月 24</time>
+	  <time datetime="2018-11-24T13:50:54.000Z" itemprop="datePublished">2018-11-24</time>
 	</a>
 </span>
-    
+        
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/Web前端/">Web前端</a>
   </span>
 
-    
+        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link" href="/tags/前端/">前端</a>
   </span>
 
 
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/posts/b0da0b6d/#comments" class="article-comment-link">评论</a></span>
-    
-  </p>
-</article>
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
 
-    
-      <article class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/posts/5eb10f7/">关于HTTP请求与响应</a>
-    </h1>
-  
 
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/posts/b0da0b6d/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element" target="_blank" rel="noopener">HTML所有元素参考</a></p>
+<h2 id="空元素"><a href="#空元素" class="headerlink" title="空元素"></a>空元素</h2><ul>
+<li><p>什么是HTML 元素？</p>
+<p> HTML元素指的是从开始标签（start tag）到结束标签（end tag）的所有代码。</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;tagname&gt; Content goes here...&lt;/tagname&gt;</span><br></pre></td></tr></table></figure>
+<p>比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;我的第一个段落&lt;/p&gt;</span><br><span class="line">&lt;h1&gt;我的第一行代码&lt;/h1&gt;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>什么是空标签？</p>
+<p>  当一个HTML元素没有内容的时候就叫做空元素。一个空元素没有结束标签（end tag），比如<code>&lt;br&gt;</code>  这样的。</p>
+</li>
+</ul>
+<ul>
+<li>所有的空元素列表：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;area&gt;</span><br><span class="line">&lt;base&gt;</span><br><span class="line">&lt;br&gt;</span><br><span class="line">&lt;col&gt;</span><br><span class="line">&lt;embed&gt;</span><br><span class="line">&lt;hr&gt;</span><br><span class="line">&lt;img&gt;</span><br><span class="line">&lt;input&gt;</span><br><span class="line">&lt;keyen&gt; (HTML 5.2 Draft removed)</span><br><span class="line">&lt;link&gt;</span><br><span class="line">&lt;meta&gt;</span><br><span class="line">&lt;param&gt;</span><br><span class="line">&lt;source&gt;</span><br><span class="line">&lt;track&gt;</span><br><span class="line">&lt;wbr&gt;</span><br><span class="line">&lt;colgroup&gt; (当有span时，是空标签)</span><br></pre></td></tr></table></figure>
+<h2 id="可替换元素"><a href="#可替换元素" class="headerlink" title="可替换元素"></a>可替换元素</h2><p>可替换元素是浏览器根据其标签的元素和属性来判断显示具体的内容。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;ss.png&quot; alt=&quot;this is ss&quot;&gt;</span><br></pre></td></tr></table></figure></p>
+<p>这是一个img元素，当src换一个的时候，浏览器显示内容就不一样。<br>HTML中的 <code>&lt;img&gt;、&lt;input&gt;、&lt;textarea&gt;、&lt;select&gt;、&lt;object&gt;</code>  等都是可替换元素。但HTML中大多数元素是不可替换元素。</p>
+<h2 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h2><p><a href="https://www.w3schools.com" target="_blank" rel="noopener">W3C</a></p>
+<p>万维网联盟（World Wide Web Consortium，W3C），又称W3C理事会，是万维网的主要国际标准组织[2]。为半自治非政府组织（quasi-autonomous non-governmental organisation）。</p>
+<p>万维网联盟（W3C）由蒂姆·伯纳斯-李于1994年10月离开欧洲核子研究中心（CERN）后成立，在欧盟执委会和国防高等研究计划署（DARPA）的支持下成立于麻省理工学院MIT计算器科学与人工智能实验室（MIT／LCS）[2]，DARPA曾率先推出了互联网及其前身ARPANET。</p>
+<p>该组织试图透过W3C制定的新标准来促进业界成员间的兼容性和协议。不兼容的HTML版本由不同的供应商提供，导致网页显示方式不一致。联盟试图让所有的供应商实施一套由联盟选择的核心原则和组件。</p>
+<p>为解决网络应用中不同平台、技术和开发者带来的不兼容问题，保障网络信息的顺利和完整流通，万维网联盟制定了一系列标准并督促网络应用开发者和内容提供者遵循这些标准。标准的内容包括使用语言的规范，开发中使用的导则和解释引擎的行为等等。W3C也制定了包括XML和CSS等的众多影响深远的标准规范。</p>
+<p>但是，W3C制定的网络标准似乎并非强制，而只是推荐标准。因此部分网站仍然不能完全实现这些标准，特别是使用早期所见即所得网页编辑软件设计的网页往往会包含大量非标准代码。</p>
+<p><a href="https://developer.mozilla.org/zh-CN/" target="_blank" rel="noopener">MDN</a></p>
+<p>MDN Web Docs（旧称Mozilla Developer Network、Mozilla Developer Center，简称MDN）是一个汇集众多Mozilla基金会产品和网络技术开发文档的免费网站[1]。</p>
+<p>该项目始于2005年，最初由Mozilla公司员工Deb Richardson领导。自2006年以来，文档工作由Eric Shepherd领导[2]。</p>
+<p>网站最初的内容是由DevEdge提供，但在AOL收购Netscape后，DevEdge网站也宣布关闭。为此Mozilla基金会向AOL获取了DevEdge发布的内容[3][2]，同时将DevEdge内容搬移到mozilla.org[4][5]。</p>
+<p>MDN本身有一个论坛，并在Mozilla IRC网络上有一个IRC频道#mdn。MDN由Mozilla公司提供服务器和员工的资助。</p>
+<p>2016年10月3日发表的Brave网页浏览器将MDN作为其搜索引擎选项之一[6]。</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://blogliu.com.cn/posts/b0da0b6d/" title="HTML的空元素和可替换元素" target="_blank" rel="external">http://blogliu.com.cn/posts/b0da0b6d/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/sdnuliu" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/sdnuliu" target="_blank"><span class="text-dark">刘腾</span><small class="ml-1x">Android &amp; Web Developer</small></a></h3>
+        <div>不为繁华易匠心</div>
+      </div>
+    </figure>
   </div>
+</div>
+
+
+    </div>
+  </article>
   
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/posts/5eb10f7/" class="article-date">
-	  <time datetime="2018-11-24T05:15:54.000Z" itemprop="datePublished">11月 24</time>
-	</a>
-</span>
     
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/Web前端/">Web前端</a>
-  </span>
-
+  <section id="comments">
+  	
+           
     
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/tags/HTTP/">HTTP</a>, <a class="article-tag-link" href="/tags/前端/">前端</a>
-  </span>
+  </section>
 
 
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/posts/5eb10f7/#comments" class="article-comment-link">评论</a></span>
-    
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/posts/cddb9e34/">Android群英传读书笔记系列（二）</a>
-    </h1>
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+  <div class="bar-inner">
   
-
-  </div>
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/posts/5eb10f7/" title="关于HTTP请求与响应"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
   
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/posts/cddb9e34/" class="article-date">
-	  <time datetime="2017-01-18T07:29:23.000Z" itemprop="datePublished">1月 18</time>
-	</a>
-</span>
-    
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-  </span>
-
-    
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/tags/笔记/">笔记</a>, <a class="article-tag-link" href="/tags/读书/">读书</a>
-  </span>
-
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/posts/cddb9e34/#comments" class="article-comment-link">评论</a></span>
-    
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/posts/5e1364b0/">工作以来的一些感悟</a>
-    </h1>
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
   
-
-  </div>
   
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/posts/5e1364b0/" class="article-date">
-	  <time datetime="2017-01-16T02:15:26.000Z" itemprop="datePublished">1月 16</time>
-	</a>
-</span>
+  <div class="bar-right">
     
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-  </span>
-
-    
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/tags/生活/">生活</a>, <a class="article-tag-link" href="/tags/随笔/">随笔</a>
-  </span>
-
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/posts/5e1364b0/#comments" class="article-comment-link">评论</a></span>
-    
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/posts/fdcd72ec/">Android群英传读书笔记系列（一）</a>
-    </h1>
-  
-
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/posts/fdcd72ec/" class="article-date">
-	  <time datetime="2017-01-15T01:33:41.000Z" itemprop="datePublished">1月 15</time>
-	</a>
-</span>
-    
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-  </span>
-
-    
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/tags/笔记/">笔记</a>, <a class="article-tag-link" href="/tags/读书/">读书</a>
-  </span>
-
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/posts/fdcd72ec/#comments" class="article-comment-link">评论</a></span>
-    
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/posts/aebfe40d/">轻松搞定MarkDown</a>
-    </h1>
-  
-
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/posts/aebfe40d/" class="article-date">
-	  <time datetime="2016-12-12T13:11:54.000Z" itemprop="datePublished">12月 12</time>
-	</a>
-</span>
-    
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/MarkDown/">MarkDown</a>
-  </span>
-
-    
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/tags/MarkDown/">MarkDown</a>, <a class="article-tag-link" href="/tags/编辑器/">编辑器</a>
-  </span>
-
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/posts/aebfe40d/#comments" class="article-comment-link">评论</a></span>
-    
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/posts/209fe3d4/">再会</a>
-    </h1>
-  
-
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/posts/209fe3d4/" class="article-date">
-	  <time datetime="2016-12-10T06:36:21.000Z" itemprop="datePublished">12月 10</time>
-	</a>
-</span>
-    
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/心情随笔/">心情随笔</a>
-  </span>
-
-    
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/tags/生活/">生活</a>, <a class="article-tag-link" href="/tags/随笔/">随笔</a>
-  </span>
-
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/posts/209fe3d4/#comments" class="article-comment-link">评论</a></span>
-    
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/posts/55640277/">说点什么</a>
-    </h1>
-  
-
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/posts/55640277/" class="article-date">
-	  <time datetime="2016-08-03T03:13:25.000Z" itemprop="datePublished">8月 3</time>
-	</a>
-</span>
-    
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/心情随笔/">心情随笔</a>
-  </span>
-
-    
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/tags/生活/">生活</a>, <a class="article-tag-link" href="/tags/随笔/">随笔</a>
-  </span>
-
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/posts/55640277/#comments" class="article-comment-link">评论</a></span>
-    
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/posts/71d27a28/">EventBus源码解读</a>
-    </h1>
-  
-
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/posts/71d27a28/" class="article-date">
-	  <time datetime="2016-01-12T07:51:10.000Z" itemprop="datePublished">1月 12</time>
-	</a>
-</span>
-    
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/移动开发/">移动开发</a>
-  </span>
-
-    
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/tags/Android/">Android</a>, <a class="article-tag-link" href="/tags/EventBus/">EventBus</a>, <a class="article-tag-link" href="/tags/GitHub/">GitHub</a>
-  </span>
-
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/posts/71d27a28/#comments" class="article-comment-link">评论</a></span>
-    
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/posts/299953da/">2016,变成更好的自己</a>
-    </h1>
-  
-
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/posts/299953da/" class="article-date">
-	  <time datetime="2016-01-10T07:57:56.000Z" itemprop="datePublished">1月 10</time>
-	</a>
-</span>
-    
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/心情随笔/">心情随笔</a>
-  </span>
-
-    
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/tags/生活/">生活</a>, <a class="article-tag-link" href="/tags/随笔/">随笔</a>
-  </span>
-
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/posts/299953da/#comments" class="article-comment-link">评论</a></span>
-    
-  </p>
-</article>
-
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
     
   </div>
-
+  </div>
+</nav>
   
-    
-    <nav class="bar bar-footer clearfix" data-stick-bottom="">
-        <div class="bar-inner">
-        <ul class="pager pull-left">
-            
-            <li class="prev disabled">
-                <a href="javascript:;">
-                    <i class="icon icon-angle-left"></i>
-                    上一页
-                </a>
-            </li>
-            
-            
-            <li class="next">
-                <a href="/page/2/">
-                    下一页
-                    <i class="icon icon-angle-right"></i>
-                </a>
-            </li>
-            
-        </ul>
-        <div class="total-article bar-right">Page 1 of 2</div>
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫">
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫">
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
         </div>
-    </nav>
-    
- 
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">
@@ -806,6 +627,27 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+
+
+   
+    
+  <!-- <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> -->
+  <script src="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+  var gitalk = new Gitalk({
+    clientID: 'a5faa554c7c9cee8180d',
+    clientSecret: '0d44b70b4a5fee03066fabe4cecd87cce140e7dd',
+    repo: 'sdnuliu.github.io',
+    owner: 'sdnuliu',
+    admin: ['sdnuliu'],
+    id: md5(location.pathname),
+    distractionFreeMode: true
+  })
+  gitalk.render('comments')
+  </script>
+
+      
 
 
 

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blogliu.com.cn/"/>
-  <updated>2018-11-24T07:01:29.468Z</updated>
+  <updated>2018-11-24T14:55:41.403Z</updated>
   <id>http://blogliu.com.cn/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>HTML的空元素和可替换元素</title>
+    <link href="http://blogliu.com.cn/posts/b0da0b6d/"/>
+    <id>http://blogliu.com.cn/posts/b0da0b6d/</id>
+    <published>2018-11-24T13:50:54.000Z</published>
+    <updated>2018-11-24T14:55:41.403Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element" target="_blank" rel="noopener">HTML所有元素参考</a></p><h2 id="空元素"><a href="#空元素" class="headerlink" title="空元素"></a>空元素</h2><ul><li><p>什么是HTML 元素？</p><p> HTML元素指的是从开始标签（start tag）到结束标签（end tag）的所有代码。</p></li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;tagname&gt; Content goes here...&lt;/tagname&gt;</span><br></pre></td></tr></table></figure><p>比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;我的第一个段落&lt;/p&gt;</span><br><span class="line">&lt;h1&gt;我的第一行代码&lt;/h1&gt;</span><br></pre></td></tr></table></figure></p><ul><li><p>什么是空标签？</p><p>  当一个HTML元素没有内容的时候就叫做空元素。一个空元素没有结束标签（end tag），比如<code>&lt;br&gt;</code>  这样的。</p></li></ul><ul><li>所有的空元素列表：</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;area&gt;</span><br><span class="line">&lt;base&gt;</span><br><span class="line">&lt;br&gt;</span><br><span class="line">&lt;col&gt;</span><br><span class="line">&lt;embed&gt;</span><br><span class="line">&lt;hr&gt;</span><br><span class="line">&lt;img&gt;</span><br><span class="line">&lt;input&gt;</span><br><span class="line">&lt;keyen&gt; (HTML 5.2 Draft removed)</span><br><span class="line">&lt;link&gt;</span><br><span class="line">&lt;meta&gt;</span><br><span class="line">&lt;param&gt;</span><br><span class="line">&lt;source&gt;</span><br><span class="line">&lt;track&gt;</span><br><span class="line">&lt;wbr&gt;</span><br><span class="line">&lt;colgroup&gt; (当有span时，是空标签)</span><br></pre></td></tr></table></figure><h2 id="可替换元素"><a href="#可替换元素" class="headerlink" title="可替换元素"></a>可替换元素</h2><p>可替换元素是浏览器根据其标签的元素和属性来判断显示具体的内容。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;ss.png&quot; alt=&quot;this is ss&quot;&gt;</span><br></pre></td></tr></table></figure></p><p>这是一个img元素，当src换一个的时候，浏览器显示内容就不一样。<br>HTML中的 <code>&lt;img&gt;、&lt;input&gt;、&lt;textarea&gt;、&lt;select&gt;、&lt;object&gt;</code>  等都是可替换元素。但HTML中大多数元素是不可替换元素。</p><h2 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h2><p><a href="https://www.w3schools.com" target="_blank" rel="noopener">W3C</a></p><p>万维网联盟（World Wide Web Consortium，W3C），又称W3C理事会，是万维网的主要国际标准组织[2]。为半自治非政府组织（quasi-autonomous non-governmental organisation）。</p><p>万维网联盟（W3C）由蒂姆·伯纳斯-李于1994年10月离开欧洲核子研究中心（CERN）后成立，在欧盟执委会和国防高等研究计划署（DARPA）的支持下成立于麻省理工学院MIT计算器科学与人工智能实验室（MIT／LCS）[2]，DARPA曾率先推出了互联网及其前身ARPANET。</p><p>该组织试图透过W3C制定的新标准来促进业界成员间的兼容性和协议。不兼容的HTML版本由不同的供应商提供，导致网页显示方式不一致。联盟试图让所有的供应商实施一套由联盟选择的核心原则和组件。</p><p>为解决网络应用中不同平台、技术和开发者带来的不兼容问题，保障网络信息的顺利和完整流通，万维网联盟制定了一系列标准并督促网络应用开发者和内容提供者遵循这些标准。标准的内容包括使用语言的规范，开发中使用的导则和解释引擎的行为等等。W3C也制定了包括XML和CSS等的众多影响深远的标准规范。</p><p>但是，W3C制定的网络标准似乎并非强制，而只是推荐标准。因此部分网站仍然不能完全实现这些标准，特别是使用早期所见即所得网页编辑软件设计的网页往往会包含大量非标准代码。</p><p><a href="https://developer.mozilla.org/zh-CN/" target="_blank" rel="noopener">MDN</a></p><p>MDN Web Docs（旧称Mozilla Developer Network、Mozilla Developer Center，简称MDN）是一个汇集众多Mozilla基金会产品和网络技术开发文档的免费网站[1]。</p><p>该项目始于2005年，最初由Mozilla公司员工Deb Richardson领导。自2006年以来，文档工作由Eric Shepherd领导[2]。</p><p>网站最初的内容是由DevEdge提供，但在AOL收购Netscape后，DevEdge网站也宣布关闭。为此Mozilla基金会向AOL获取了DevEdge发布的内容[3][2]，同时将DevEdge内容搬移到mozilla.org[4][5]。</p><p>MDN本身有一个论坛，并在Mozilla IRC网络上有一个IRC频道#mdn。MDN由Mozilla公司提供服务器和员工的资助。</p><p>2016年10月3日发表的Brave网页浏览器将MDN作为其搜索引擎选项之一[6]。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;a href=&quot;https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;HTML所有元素参考&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;空元素&quot;&gt;&lt;a hre
+      
+    
+    </summary>
+    
+      <category term="Web前端" scheme="http://blogliu.com.cn/categories/Web%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="前端" scheme="http://blogliu.com.cn/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
   
   <entry>
     <title>关于HTTP请求与响应</title>
