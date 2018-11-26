@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blogliu.com.cn/"/>
-  <updated>2018-11-25T13:44:04.257Z</updated>
+  <updated>2018-11-26T13:48:22.481Z</updated>
   <id>http://blogliu.com.cn/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Warning:ignoreWarning is false, but we found loader classes are found in old secondary dex.</title>
+    <link href="http://blogliu.com.cn/posts/edb74f3d/"/>
+    <id>http://blogliu.com.cn/posts/edb74f3d/</id>
+    <published>2018-11-26T10:57:00.000Z</published>
+    <updated>2018-11-26T13:48:22.481Z</updated>
+    
+    <content type="html"><![CDATA[<p>由于Android Studio很久没有升级，所以在一次闲暇时间进行了版本升级，同时对构建工具Gradle也进行了一次升级，由于项目中用到了微信热修复Tinker,然后升级后在进行应用热修复的时候发现了问题：无法生成热修复补丁包。现将解决方法记录如下。</p><p>错误信息如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Warning:ignoreWarning is false, but we found loader classes are found in old secondary dex.</span><br></pre></td></tr></table></figure><p>从字面信息看，提示似乎是gradle 升级到新版本之后，tinker相关的引导加载类，被分包在了非main dex 中，失去了主导权。</p><p>查阅相关Tinker文档，文档中说明是这样描述：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">注意：Tinker会自动生成需要放在主dex的keep规则。</span><br><span class="line">在1.7.6版本之前，你需要手动将生成规则拷贝到自己的multiDexKeepProguard文件中。</span><br><span class="line">例如Sample中的multiDexKeepProguard file(&quot;keep_in_main_dex.txt&quot;)。</span><br><span class="line">在1.7.6版本之后，这里会通过脚本自动处理，无须手动填写。</span><br><span class="line"></span><br><span class="line">另外，如果minsdkverion &gt;=21, multiDexEnabled会被忽略。</span><br><span class="line">我们可以在build/intermediates/multi-dex查找最终的keep规则以及结果。</span><br></pre></td></tr></table></figure><p>但是不知道为什么自动的规则没有生效。所以我们可以手动将tinker_multidexkeep.pro文件 添加到multiDexKeepProguard 配置中。</p><p>具体做法如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">在app的build.gradle文件中增加如下配置：</span><br><span class="line">  defaultConfig &#123;</span><br><span class="line">      ...</span><br><span class="line">        //当方法过多时用来分包。</span><br><span class="line">        multiDexEnabled true</span><br><span class="line">        multiDexKeepProguard file(&apos;multidex-config.pro&apos;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">同时将tinker_multidexkeep.pro文件放到app目录下</span><br></pre></td></tr></table></figure><p>tinker_multidexkeep.pro文件可以在build-intermediates-tinker_intermediates下找到。</p><p>当前版本该文件内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#tinker multidex keep patterns:</span><br><span class="line">-keep public class * implements com.tencent.tinker.loader.app.ApplicationLifeCycle &#123;</span><br><span class="line">    &lt;init&gt;(...);</span><br><span class="line">    void onBaseContextAttached(android.content.Context);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-keep public class * extends com.tencent.tinker.loader.TinkerLoader &#123;</span><br><span class="line">    &lt;init&gt;(...);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-keep public class * extends android.app.Application &#123;</span><br><span class="line">     &lt;init&gt;();</span><br><span class="line">     void attachBaseContext(android.content.Context);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-keep class com.tencent.tinker.loader.TinkerTestAndroidNClassLoader &#123;</span><br><span class="line">    &lt;init&gt;(...);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#your dex.loader patterns here</span><br><span class="line">-keep class com.tencent.tinker.loader.** &#123;</span><br><span class="line">    &lt;init&gt;(...);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-keep class com.tencent.bugly.beta.tinker.TinkerPatchReflectApplication &#123;</span><br><span class="line">    &lt;init&gt;(...);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>重新打补丁包即可编译成功。如有问题，欢迎留言。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;由于Android Studio很久没有升级，所以在一次闲暇时间进行了版本升级，同时对构建工具Gradle也进行了一次升级，由于项目中用到了微信热修复Tinker,然后升级后在进行应用热修复的时候发现了问题：无法生成热修复补丁包。现将解决方法记录如下。&lt;/p&gt;
+&lt;p&gt;错误信
+      
+    
+    </summary>
+    
+      <category term="Android" scheme="http://blogliu.com.cn/categories/Android/"/>
+    
+    
+      <category term="移动开发" scheme="http://blogliu.com.cn/tags/%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/"/>
+    
+      <category term="Gradle" scheme="http://blogliu.com.cn/tags/Gradle/"/>
+    
+  </entry>
   
   <entry>
     <title>HTML常用标签</title>
