@@ -1,0 +1,71 @@
+body{
+    background: black;
+    color: white;
+}
+a{
+    text-decoration: none;
+}
+
+.topLink>ul>li{
+    float: left;
+    margin-left: 17px;
+    margin-right: 17px;
+}
+
+.reumeTop{
+    padding: 20px 10px 20px 10px;
+}
+
+.topName{
+    float: left;
+    font-size: 24px;
+    font-family: "Hiragino Kaku Gothic StdN";
+}
+.topName .rs{
+    margin-right: 4px;
+    color: #e6686a;
+}
+.topName .card{
+    color: #9a9da2;
+}
+
+
+.topLinkUl{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.topLink{
+    float: right;
+    margin-right: 150px;
+}
+.clearfix:after{
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.topLink>ul>li>a{
+    color: #b7b7b7;
+    font-size: 10px;
+    display: block;
+    padding-bottom: 6px;
+    padding-top: 6px;
+    border-top:3px solid transparent;
+    border-bottom:3px solid transparent;
+    font-family: "Hiragino Kaku Gothic StdN";
+}
+.topLink>ul>li>a:hover{
+    border-bottom: 3px solid #e06567;
+}
+.centerText{
+    text-align: center;
+    color: white;
+    font-size: 25px;
+    font-family: "Hiragino Kaku Gothic StdN";
+    position: absolute;
+    left: 50%; 
+    top: 50%;
+    margin-left: -150px;
+    margin-top: -50px;
+}
