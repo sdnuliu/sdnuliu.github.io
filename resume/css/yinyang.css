@@ -1,0 +1,38 @@
+.yinYang {
+  width: 120px;
+  box-sizing: content-box;
+  height: 60px;
+  background: #eee;
+  border-color:black;
+  border-style: solid;
+  border-width: 2px 2px 60px 2px;
+  border-radius: 100%;
+  position: relative;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+.yinYang::before{
+  content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      background: #eee;
+      border: 18px solid black;
+      border-radius: 100%;
+      width: 24px;
+      height: 24px;
+      box-sizing: content-box;
+}
+
+.yinYang::after{
+  content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      background: black;
+      border: 18px solid #eee;
+      border-radius: 100%;
+      width: 24px;
+      height: 24px;
+      box-sizing: content-box;
+}
