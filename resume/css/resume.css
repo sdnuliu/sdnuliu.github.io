@@ -1,71 +1,181 @@
-body{
-    background: black;
-    color: white;
+body {
+    background: #efefef;
+    margin: 0;
 }
-a{
+
+a {
     text-decoration: none;
 }
 
-.topLink>ul>li{
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.topLink>ul>li {
     float: left;
     margin-left: 17px;
     margin-right: 17px;
 }
 
-.reumeTop{
+.reumeTop {
     padding: 20px 10px 20px 10px;
+    position: fixed;
+    width: 100%;
 }
 
-.topName{
+.topName {
     float: left;
     font-size: 24px;
     font-family: "Hiragino Kaku Gothic StdN";
 }
-.topName .rs{
+
+.topName .rs {
     margin-right: 4px;
     color: #e6686a;
 }
-.topName .card{
+
+.topName .card {
     color: #9a9da2;
 }
 
-
-.topLinkUl{
+.topLinkUl {
     list-style: none;
     margin: 0;
     padding: 0;
 }
-.topLink{
+
+.topLink {
     float: right;
-    margin-right: 150px;
+    margin-right: 30px;
 }
-.clearfix:after{
+
+.clearfix:after {
     content: '';
     display: block;
     clear: both;
 }
 
-.topLink>ul>li>a{
+.topLink>ul>li>a {
     color: #b7b7b7;
     font-size: 10px;
     display: block;
     padding-bottom: 6px;
     padding-top: 6px;
-    border-top:3px solid transparent;
-    border-bottom:3px solid transparent;
+    border-top: 3px solid transparent;
+    border-bottom: 3px solid transparent;
     font-family: "Hiragino Kaku Gothic StdN";
 }
-.topLink>ul>li>a:hover{
+
+.topLink>ul>li>a:hover {
     border-bottom: 3px solid #e06567;
 }
-.centerText{
+
+.centerText {
     text-align: center;
     color: white;
     font-size: 25px;
     font-family: "Hiragino Kaku Gothic StdN";
     position: absolute;
-    left: 50%; 
+    left: 50%;
     top: 50%;
     margin-left: -150px;
     margin-top: -50px;
+}
+
+.banner {
+    height: 450px;
+    background-image: url(../img/topBg.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+.banner .conver {
+    height: 450px;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.picture {
+    float: left;
+}
+
+.userInfo {
+    float: left;
+    margin-left: 65px;
+    width: 470px;
+}
+
+.userContent {
+    max-width: 940px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    padding: 50px;
+}
+
+.userInfo .hello {
+    background: #e6686a;
+    color: white;
+    display: inline-block;
+    padding: 4px 16px;
+    line-height: 22px;
+}
+
+.triangle {
+    width: 0;
+    height: 0;
+    border-top: 10px solid #e6686a;
+    border-right: 10px solid transparent;
+    margin-left: 8px;
+  }
+
+  .userInfo dl dt{
+      float: left;
+      width: 30%;
+      font-weight: bold;
+      padding: 5px 0;
+  }
+
+  .userInfo dl dd{
+      float: left;
+      width: 70%;
+      color: #9da0a7;
+      padding: 5px 0;
+  }
+
+  .userInfo>p{
+      padding: 8px;
+  }
+
+  .userInfo>hr{
+      margin: 10px 0;
+  }
+
+  .footer{
+      background: #e6686a;
+      text-align: center;
+      max-width: 940px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 50px 0 50px;
+  }
+
+.footer>a>svg{
+    fill: white;
+    width: 20px;
+    height: 20px;
+    vertical-align: t   op;
+}
+
+.footer>a{
+    display: inline-block;
+    width: 30px;
+    line-height: 20px;
+    padding: 5px 0;
+    border-radius: 50%;
+    margin: 13px;
+}
+
+.footer>a:hover{
+    background: #cf5d5f;
 }
