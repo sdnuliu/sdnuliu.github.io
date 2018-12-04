@@ -10,10 +10,11 @@
     <script src="//at.alicdn.com/t/font_942931_fusof22wwv.js"></script>
     <style type="text/css">
         .icon {
-           width: 1em; height: 1em;
-           vertical-align: -0.15em;
-           fill: currentColor;
-           overflow: hidden;
+            width: 1em;
+            height: 1em;
+            vertical-align: -0.15em;
+            fill: currentColor;
+            overflow: hidden;
         }
     </style>
 </head>
@@ -40,48 +41,144 @@
     <div class="banner">
         <div class="conver"></div>
     </div>
-    <div class="userContent clearfix">
-        <div class="picture">
-            <img src="./img/avator.jpg" alt="我的头像" width="299px" height="347px">
+    <div class="user">
+        <div class="userContent clearfix">
+            <div class="picture">
+                <img src="./img/avator.jpg" alt="我的头像" width="299px" height="347px">
+            </div>
+            <div class="userInfo">
+                <span class="hello">Hello</span>
+                <div class="triangle"></div>
+                <h1>I'm Robert Smith</h1>
+                <p>Developer and Startup entrepreneur</p>
+                <hr>
+                <dl>
+                    <dt>AGE</dt>
+                    <dd>29</dd>
+                    <dt>ADDRESS</dt>
+                    <dd>24058, Belgium, Brussels, Liutte 27, BE</dd>
+                    <dt>E-MAIL</dt>
+                    <dd>robertsmith@company.com</dd>
+                    <dt>PHONE</dt>
+                    <dd>+1 256 254 84 56</dd>
+                    <dt>FREELANCE</dt>
+                    <dd>till March 25, 2018</dd>
+                </dl>
+            </div>
         </div>
-        <div class="userInfo">
-            <span class="hello">Hello</span>
-            <div class="triangle"></div>
-            <h1>I'm Robert Smith</h1>
-            <p>Developer and Startup entrepreneur</p>
-            <hr>
-            <dl>
-                <dt>AGE</dt>
-                <dd>29</dd>
-                <dt>ADDRESS</dt>
-                <dd>24058, Belgium, Brussels, Liutte 27, BE</dd>
-                <dt>E-MAIL</dt>
-                <dd>robertsmith@company.com</dd>
-                <dt>PHONE</dt>
-                <dd>+1 256 254 84 56</dd>
-                <dt>FREELANCE</dt>
-                <dd>till March 25, 2018</dd>
-            </dl>
-        </div>
+        <footer class="footer">
+            <a href="#">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            </a>
+            <a href="#">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-google"></use>
+                </svg>
+
+            </a>
+            <a href="#">
+                <svg class="icon">
+                    <use xlink:href="#icon-weibo"></use>
+                </svg>
+            </a>
+        </footer>
     </div>
-    <footer class="footer">
-        <a href="#">
-            <svg class="icon" aria-hidden="true">
-                <use xlink:href="#icon-github"></use>
-            </svg>
-        </a>
-        <a href="#">
-            <svg class="icon" aria-hidden="true">
-                <use xlink:href="#icon-google"></use>
-            </svg>
-            
-        </a>
-        <a href="#">
-            <svg class="icon" >
-                <use xlink:href="#icon-weibo"></use>
-            </svg>
-        </a>
-    </footer>
+    <div class="downloadLocation">
+        <a class="resumeDownload" href="./temp.txt" target="_blank" download>DOWNLOAD RESUME</a>
+    </div>
+    <div class="selfIntroductionWrapper">
+        <p class="selfIntroduction">Hello! I’m Robert Smith. Senior Web Developer specializing in front end
+            development. Experienced with all stages of the development cycle for dynamic web projects. Well-versed in
+            numerous programming languages including JavaScript, SQL, and C. Stng background in project management and
+            customer relations.</p>
+    </div>
+    <section class="skills">
+        <div>
+            <h2 class="section-title">Professional Skills</h2>
+            <ol class="clearfix">
+                <li class="bar-title">
+                    <h3>WordPress</h3>
+                    <div class="progressBar">
+                        <div class="progress" style="width: 50%;"></div>
+                    </div>
+                </li>
+                <li class="bar-title">
+                    <h3>HTML & CSS</h3>
+                    <div class="progressBar">
+                        <div class="progress" style="width: 60%;"></div>
+                    </div>
+                </li>
+                <li class="bar-title">
+                    <h3>JavaScript</h3>
+                    <div class="progressBar">
+                        <div class="progress" style="width: 80%;"></div>
+                    </div>
+                </li>
+                <li class="bar-title">
+                    <h3>PHP & MySQL</h3>
+                    <div class="progressBar">
+                        <div class="progress" style="width: 50%;"></div>
+                    </div>
+                </li>
+                <li class="bar-title">
+                    <h3>Drupal</h3>
+                    <div class="progressBar">
+                        <div class="progress" style="width: 90%;"></div>
+                    </div>
+                </li>
+                <li class="bar-title">
+                    <h3>Photoshop</h3>
+                    <div class="progressBar">
+                        <div class="progress" style="width: 70%;"></div>
+                    </div>
+                </li>
+            </ol>
+        </div>
+    </section>
+    <section class="protfolio">
+        <div>
+            <h2 class="section-title">Portfolio</h2>
+            <nav class="protfolioNav">
+                <ol class="liGroup clearfix">
+                    <li id="item1">All</li>
+                    <li id="item2">PHOTOGRAPHY</li>
+                    <li id="item3">UX DESIGN</li>
+                </ol>
+                <div id="portfolioBar" class="bar state-1">
+                    <div class="bar-inner"></div>
+                </div>
+                <script>
+                    item1.onclick = function () {
+                        portfolioBar.className = 'bar state-1'
+                    }
+                    item2.onclick = function () {
+                        portfolioBar.className = 'bar state-2'
+                    }
+                    item3.onclick = function () {
+                        portfolioBar.className = 'bar state-3'
+                    }
+                </script>
+            </nav>
+            <div class="work">
+                <div class="left">
+                    <article class="pfItem">
+                </div>
+                <div class="rightOne">
+                   <article class="pfItem">
+
+                   </article>
+                </div>
+                <div class="rightSecond">
+                    <article class="pfItem">
+
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
 </body>
 
 </html>
