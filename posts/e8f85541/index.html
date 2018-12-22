@@ -17,22 +17,21 @@
   <meta http-equiv="window-target" content="_top">
   
   
-  <title>关于 | 刘腾的博客</title>
-  <meta name="description" content="Nickname: sdnuliuEmail: sdnuliu@qq.com         微信扫一扫，叫我好友">
-<meta property="og:type" content="website">
-<meta property="og:title" content="关于">
-<meta property="og:url" content="http://blogliu.com.cn/about/index.html">
+  <title>原型与原型链 | 刘腾的博客</title>
+  <meta name="description" content="背景知识假如你学过其他编程语言，那么你会发现JavaScript和Java、C++等传统面向对象的编程语言不同，它是没有类（class）的概念的（ES6中的class也只不过是语法糖，并非真正意义上的类）。 在基于类的传统面向对象的编程语言中，对象由类实例化而来，实例化的过程中，类的属性和方法会拷贝到这个对象中；对象的继承实际上是类的继承，在定义子类继承于父类时，子类会将父类的属性和方法拷贝到自身">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="原型与原型链">
+<meta property="og:url" content="http://blogliu.com.cn/posts/e8f85541/index.html">
 <meta property="og:site_name" content="刘腾的博客">
-<meta property="og:description" content="Nickname: sdnuliuEmail: sdnuliu@qq.com         微信扫一扫，叫我好友">
+<meta property="og:description" content="背景知识假如你学过其他编程语言，那么你会发现JavaScript和Java、C++等传统面向对象的编程语言不同，它是没有类（class）的概念的（ES6中的class也只不过是语法糖，并非真正意义上的类）。 在基于类的传统面向对象的编程语言中，对象由类实例化而来，实例化的过程中，类的属性和方法会拷贝到这个对象中；对象的继承实际上是类的继承，在定义子类继承于父类时，子类会将父类的属性和方法拷贝到自身">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://itimage.oss-cn-shanghai.aliyuncs.com/mmqrcode1484533504964.png">
-<meta property="og:updated_time" content="2017-01-16T02:28:08.000Z">
+<meta property="og:updated_time" content="2018-12-22T13:23:41.611Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关于">
-<meta name="twitter:description" content="Nickname: sdnuliuEmail: sdnuliu@qq.com         微信扫一扫，叫我好友">
-<meta name="twitter:image" content="http://itimage.oss-cn-shanghai.aliyuncs.com/mmqrcode1484533504964.png">
+<meta name="twitter:title" content="原型与原型链">
+<meta name="twitter:description" content="背景知识假如你学过其他编程语言，那么你会发现JavaScript和Java、C++等传统面向对象的编程语言不同，它是没有类（class）的概念的（ES6中的class也只不过是语法糖，并非真正意义上的类）。 在基于类的传统面向对象的编程语言中，对象由类实例化而来，实例化的过程中，类的属性和方法会拷贝到这个对象中；对象的继承实际上是类的继承，在定义子类继承于父类时，子类会将父类的属性和方法拷贝到自身">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://blogliu.com.cn/about/index.html">
+  <link rel="canonical" href="http://blogliu.com.cn/posts/e8f85541/index.html">
   
     <link rel="alternate" href="/atom.xml" title="刘腾的博客" type="application/atom+xml">
   
@@ -347,16 +346,25 @@
 
   
   
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#背景知识"><span class="toc-number">1.</span> <span class="toc-text">背景知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原型和原型链"><span class="toc-number">2.</span> <span class="toc-text">原型和原型链</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-字面量方式"><span class="toc-number">2.1.</span> <span class="toc-text">1.字面量方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-函数的构造调用"><span class="toc-number">2.2.</span> <span class="toc-text">2.函数的构造调用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#proto和prototype"><span class="toc-number">3.</span> <span class="toc-text">proto和prototype</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#特殊情况"><span class="toc-number">4.</span> <span class="toc-text">特殊情况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考及推荐"><span class="toc-number">5.</span> <span class="toc-text">参考及推荐</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
 <main class="main" role="main">
   <div class="content">
-  <article id="page-" class="article article-type-page" itemscope="" itemtype="http://schema.org/BlogPosting">
+  <article id="post-原型与原型链" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      关于
+      原型与原型链
     </h1>
   
 
@@ -364,12 +372,22 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/about/index.html" class="article-date">
-	  <time datetime="2018-11-22T04:16:22.239Z" itemprop="datePublished">2018-11-22</time>
+	<a href="/posts/e8f85541/" class="article-date">
+	  <time datetime="2018-12-22T13:22:00.000Z" itemprop="datePublished">2018-12-22</time>
 	</a>
 </span>
         
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </span>
+
         
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/JavaScript/">JavaScript</a>
+  </span>
+
 
         
 	<span class="article-read hidden-xs">
@@ -380,18 +398,33 @@
 	</span>
 
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/about/index.html#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/posts/e8f85541/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <p>Nickname: sdnuliu<br>Email: <a href="mailto:sdnuliu@qq.com" target="_blank" rel="noopener">sdnuliu@qq.com</a></p>
-<iframe src="https://ghbtns.com/github-btn.html?user=sdnuliu&type=follow&size=large" frameborder="0" scrolling="0" width="220px" height="30px"></iframe>
+        <h2 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h2><p>假如你学过其他编程语言，那么你会发现JavaScript和Java、C++等传统面向对象的编程语言不同，它是没有类（class）的概念的（ES6中的class也只不过是语法糖，并非真正意义上的类）。</p>
+<p>在基于类的传统面向对象的编程语言中，对象由类实例化而来，实例化的过程中，类的属性和方法会拷贝到这个对象中；对象的继承实际上是类的继承，在定义子类继承于父类时，子类会将父类的属性和方法拷贝到自身当中。因此，对象创建和继承行为都是通过拷贝完成的。但在JavaScript中，对象的创建、对象的继承（更好的叫法是对象的代理，因为它并不是传统意义上的继承）是不存在拷贝行为的。现在为了更好的理解这种行为，我们应该忘掉类、忘掉继承，这一切都不属于JavaScript。</p>
+<h2 id="原型和原型链"><a href="#原型和原型链" class="headerlink" title="原型和原型链"></a>原型和原型链</h2><p>原型这个名字本身就很容易产生误解，原型在百度词条中的释义是：指原来的类型或模型。按照这个定义解释的话，对象的原型是对象创建自身的模子，模子具备的特点对象都要具有，这俨然就是拷贝的概念。我们已经说过，JavaScript的对象创建不存在拷贝，对象的原型实际上也是一个对象，它和对象本身是完全独立的两个对象。既然如此，原型存在的意义又是什么呢？原型是为了共享多个对象之间的一些共有特性（属性或方法），这个功能也是任何一门面向对象的编程语言必须具备的。A、B两个对象的原型相同，那么它们必然有一些相同的特征。</p>
+<p>JavaScript中的对象，都有一个内置属性[[Prototype]]，指向这个对象的原型对象。当查找一个属性或方法时，如果在当前对象中找不到定义，会继续在当前对象的原型对象中查找；如果原型对象中依然没有找到，会继续在原型对象的原型中查找（原型也是对象，也有它自己的原型）；如此继续，直到找到为止，或者查找到最顶层的原型对象中也没有找到，就结束查找，返回undefined。可以看出，这个查找过程是一个链式的查找，每个对象都有一个到它自身原型对象的链接，这些链接组件的整个链条就是原型链。拥有相同原型的多个对象，他们的共同特征正是通过这种查找模式体现出来的。<br>在上面的查找过程，我们提到了最顶层的原型对象，这个对象就是Object.prototype，这个对象中保存了最常用的方法，如toString、valueOf、hasOwnProperty等，因此我们才能在任何对象中使用这些方法。</p>
+<h3 id="1-字面量方式"><a href="#1-字面量方式" class="headerlink" title="1.字面量方式"></a>1.字面量方式</h3><p>当通过字面量方式创建对象时，它的原型就是Object.prototype。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var obj = &#123;&#125;;</span><br><span class="line">Object.getPrototypeOf(obj) === Object.prototype;   // true</span><br><span class="line">obj.__proto__  === Object.prototype;            // true</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-函数的构造调用"><a href="#2-函数的构造调用" class="headerlink" title="2.函数的构造调用"></a>2.函数的构造调用</h3><p>通过函数的构造调用（注意，我们不把它叫做构造函数，因为JavaScript中同样没有构造函数的概念，所有的函数都是平等的，只不过用来创建对象时，函数的调用方式不同而已）也是一种常用的创建对象的方式。基于同一个函数创建出来的对象，理应可以共享一些相同的属性或方法，但这些属性或方法如果放在Object.prototype里，那么所有的对象都可以使用它们了，作用域太大，显然不合适。于是，JavaScript在定义一个函数时，同时为这个函数定义了一个 默认的prototype属性，所有共享的属性或方法，都放到这个属性所指向的对象中。由此看出，通过一个函数的构造调用创建的对象，它的原型就是这个函数的prototype指向的对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var f = function(name) &#123; this.name = name &#125;;</span><br><span class="line">f.prototype.getName = function() &#123; return this.name; &#125;   //在prototype下存放所有对象的共享方法</span><br><span class="line">var obj = new f(&apos;JavaScript&apos;);</span><br><span class="line">obj.getName();                  // JavaScript</span><br><span class="line">obj.__proto__ === f.prototype;  // true</span><br></pre></td></tr></table></figure>
+<h2 id="proto和prototype"><a href="#proto和prototype" class="headerlink" title="proto和prototype"></a><strong>proto</strong>和prototype</h2><p>这是容易混淆的两个属性。<strong>proto</strong>指向当前对象的原型，prototype是函数才具有的属性，默认情况下，new 一个函数创建出的对象，其原型都指向这个函数的prototype属性。</p>
+<h2 id="特殊情况"><a href="#特殊情况" class="headerlink" title="特殊情况"></a>特殊情况</h2><ol>
+<li>对于JavaScript中的内置对象，如String、Number、Array、Object、Function等，因为他们是native代码实现的，他们的原型打印出来都是ƒ () { [native code] }。</li>
+<li>内置对象本质上也是函数，所以可以通过他们创建对象，创建出的对象的原型指向对应内置对象的prototype属性，最顶层的原型对象依然指向Object.prototype。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&apos;abc&apos;.__proto__ === String.prototype;   // true </span><br><span class="line">new String(&apos;abc&apos;).__proto__ === String.prototype;  //true</span><br><span class="line"></span><br><span class="line">new Number(1).__proto__  ==== Number.prototype;   // true</span><br><span class="line"></span><br><span class="line">[1,2,3].__proto__ === Array.prototype;            // true</span><br><span class="line">new Array(1,2,3).__proto__ === Array.prototype;   // true</span><br><span class="line"></span><br><span class="line">(&#123;&#125;).__proto__ === Object.prototype;               // true </span><br><span class="line">new Object(&#123;&#125;).__proto__ === Object.prototype;     // true</span><br><span class="line"></span><br><span class="line">var f = function() &#123;&#125;;</span><br><span class="line">f.__proto__ === Function.prototype;            // true</span><br><span class="line">var f = new Function(&apos;&#123;&#125;&apos;);</span><br><span class="line">f.__proto__ === Function.prototype;            // true</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="参考及推荐"><a href="#参考及推荐" class="headerlink" title="参考及推荐"></a>参考及推荐</h2><ul>
+<li>继承与原型链<br>developer.mozilla.org</li>
+<li>Javascript继承机制的设计思想 - 阮一峰的网络日志<br><a href="http://www.ruanyifeng.com" target="_blank" rel="noopener">www.ruanyifeng.com</a></li>
+<li>白话原型和原型链 -掘金<br>juejin.im</li>
+<li><a href="https://github.com/mqyqingfeng/Blog/issues/2" target="_blank" rel="noopener">https://github.com/mqyqingfeng/Blog/issues/2</a></li>
+<li>原型与原型链 · 饥人谷课件<br>book.jirengu.com</li>
+</ul>
 
-<hr>
-<p><div align="center"><br>    <img src="http://itimage.oss-cn-shanghai.aliyuncs.com/mmqrcode1484533504964.png" width="300" height="300"><br></div></p>
-<center>微信扫一扫，叫我好友</center>
       
     </div>
     <div class="article-footer">
@@ -400,7 +433,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://blogliu.com.cn/about/index.html" title="关于" target="_blank" rel="external">http://blogliu.com.cn/about/index.html</a>
+      <a href="http://blogliu.com.cn/posts/e8f85541/" title="原型与原型链" target="_blank" rel="external">http://blogliu.com.cn/posts/e8f85541/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -431,12 +464,37 @@
   </article>
   
     
+  <section id="comments">
+  	
+           
+    
+  </section>
+
 
   
 </div>
 
   <nav class="bar bar-footer clearfix" data-stick-bottom="">
   <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/posts/d8767f04/" title="JavaScript里的数据转换"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
   
   
   <!-- Button trigger modal -->
@@ -552,6 +610,33 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+  <!-- <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> -->
+  <script src="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+  var gitalk = new Gitalk({
+    clientID: 'a5faa554c7c9cee8180d',
+    clientSecret: '0d44b70b4a5fee03066fabe4cecd87cce140e7dd',
+    repo: 'sdnuliu.github.io',
+    owner: 'sdnuliu',
+    admin: ['sdnuliu'],
+    id: md5(location.pathname),
+    distractionFreeMode: true
+  })
+  gitalk.render('comments')
+  </script>
+
+      
 
 
 
